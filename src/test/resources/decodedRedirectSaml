@@ -1,0 +1,16 @@
+<saml2:Assertion ID="c994e302-24cb-4a03-be52-601656629b23" IssueInstant="2014-10-13T11:24:05.772Z" Version="2.0" xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="saml2:AssertionType"><saml2:Issuer>DSP</saml2:Issuer><ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#"><ds:SignedInfo><ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/><ds:Reference URI="#c994e302-24cb-4a03-be52-601656629b23"><ds:Transforms><ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/><ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"><ec:InclusiveNamespaces PrefixList="xs" xmlns:ec="http://www.w3.org/2001/10/xml-exc-c14n#"/></ds:Transform></ds:Transforms><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><ds:DigestValue>EgT99yNPJPak3XDLdAOvVamnVsk=</ds:DigestValue></ds:Reference></ds:SignedInfo><ds:SignatureValue>Yskwq52fa2vFG4xFBO3JCpwaM+EtBRvP/u1Kls6RW19Qp++YSvXYMFpW3aO0ZUL7i0X+lSWCls+R2ZabNKFyLqsh8XW7yzmtotmJKJoAWR14umY1iKxko6K2DwEX3eZ0TF9X6n+OIB8iqU5egUnGbIxN7ywZUhCQ+X3kManaO2XWREf8b12gpdscNDlwzShuqjiIWRGTEyoQjhU1ILvsW9NpQaMGquXU4NeY/Bch6S10vhEkDQzwLWBckfxTUSH/grVntMiS7ewsGQQKRjlnwrS8utbQmYQMOPuVKfIh5REM+5vksu9LoVT08+YoX3PUswaZCyo0C83V+J45l1lijA==</ds:SignatureValue><ds:KeyInfo><ds:X509Data><ds:X509Certificate>MIIDUzCCAjugAwIBAgIEfd6P1zANBgkqhkiG9w0BAQsFADBaMQswCQYDVQQGEwJVUzELMAkGA1UE
+CBMCQ0ExEjAQBgNVBAcTCVNhbiBSYW1vbjELMAkGA1UEChMCR0UxDzANBgNVBAsTBlByZWRpeDEM
+MAoGA1UEAxMDU1RTMB4XDTE0MTAwMjEzNTUwNFoXDTE1MTAwMjEzNTUwNFowWjELMAkGA1UEBhMC
+VVMxCzAJBgNVBAgTAkNBMRIwEAYDVQQHEwlTYW4gUmFtb24xCzAJBgNVBAoTAkdFMQ8wDQYDVQQL
+EwZQcmVkaXgxDDAKBgNVBAMTA1NUUzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJ2r
+ddq8cXhkIZjUpUYV6IMG0xJfodJY3Zmtq4lcv8ZGIBUpplo/DeJR5F8dYtf9plnbvNXqI7t7oNnq
+qcKTlwv/7/EI1O2WAY1MkbJTHUYRmhm5ZV6RTfQeQZ4c12zlLe1PwoeL+gEhfl+3ODzM7pg2cAhs
+qu5ieWVHOpsNKz7Jn5ch54KzMT5+mk5fLNlGMhNiA9Krd4Xw22a8NtHgFrAs4Wjajv0ZqY6eroAj
+W3EE7S9v845amizsXjC56f3MDxqWsNPFKF2Nbed9QeXAejlB/zOvAAoN+NKYbQAlsPsmCYN5CYXz
+AWH6azJf64wYJ3t8Bukckl4iYBbVbIojp6UCAwEAAaMhMB8wHQYDVR0OBBYEFL1e5LGlACUM/wql
+b6FySqnDpNqbMA0GCSqGSIb3DQEBCwUAA4IBAQCLDGLLKo88Mk3BbJSIpTwO2xbZrzOX1trW0w8e
+A7CTzRvKwCSsY8ZkbvQuu6/BqPV6w6Di5GkZxI4JdO/GOKFzuEYe+WrtHVF7iXqw3QEBLEjMr/Tb
+QpUDeD85GkEw5eBPVQHcQxX20o6hYttiFEoqjlvowSq1JMpj6St/P/+ZOIA1rbYalv6LzZgpsnxG
+pb+Gcb9YWO1ENJvJGM1q8sNdEVsxY5lOIFWrvWp4c8lCT8WpRybCqG5Sq7rB02r2vJg0kuU9C4kC
+3OXTNXSvg3Xizr/L68ZB2zcntWOnxZEIwBnTS+R6bSyqbJomxHEQ2fJJqLI15q9B40Oi4xRj0Mlx</ds:X509Certificate></ds:X509Data></ds:KeyInfo></ds:Signature><saml2:Subject><saml2:NameID Format="urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified" NameQualifier="http://cxf.apache.org/sts">demo</saml2:NameID><saml2:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer"/></saml2:Subject><saml2:Conditions NotBefore="2014-10-13T11:24:05.847Z" NotOnOrAfter="2014-10-13T11:29:05.847Z"/><saml2:AttributeStatement><saml2:Attribute Name="token-requestor" NameFormat="http://cxf.apache.org/sts"><saml2:AttributeValue xsi:type="xs:string">authenticated</saml2:AttributeValue></saml2:Attribute></saml2:AttributeStatement></saml2:Assertion>
+
