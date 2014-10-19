@@ -12,7 +12,7 @@ import java.io.UnsupportedEncodingException;
 /**
  * Created by Kávai on 2014.10.19..
  */
-@Path("url")
+@Path("base64")
 public class Base64CodeService {
     @POST
     @Path("decode")
