@@ -4,14 +4,6 @@
         xmlns="http://java.sun.com/xml/ns/javaee"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-    <servlet>
-        <servlet-name>samlservlet</servlet-name>
-        <servlet-class>com.smartdevs.SamlServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>samlservlet</servlet-name>
-        <url-pattern>/samlservlet</url-pattern>
-    </servlet-mapping>
     <filter>
         <filter-name>guiceFilter</filter-name>
         <filter-class>com.google.inject.servlet.GuiceFilter</filter-class>
