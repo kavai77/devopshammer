@@ -1,5 +1,6 @@
 package com.smartdevs.engine;
 
+import com.smartdevs.exception.PrettyXmlCreationException;
 import org.w3c.dom.Node;
 import org.w3c.dom.bootstrap.DOMImplementationRegistry;
 import org.w3c.dom.ls.DOMImplementationLS;
@@ -27,18 +28,18 @@ public class PrettyXmlPrinter {
         this.unformattedXml = unformattedXml;
     }
 
-    public String getPrettyXml() {
+    public String getPrettyXml() throws PrettyXmlCreationException {
         try {
             return domToXmlSerializer().writeToString(createDocumentFromString());
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new PrettyXmlCreationException(e);
         }
     }
 
     private LSSerializer domToXmlSerializer() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         final DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
         final DOMImplementationLS impl = (DOMImplementationLS) registry.getDOMImplementation(LS);
-        LSSerializer serializedXml = impl.createLSSerializer();
+        final LSSerializer serializedXml = impl.createLSSerializer();
 
         serializedXml.getDomConfig().setParameter(FORMAT_PRETTY_PRINT, Boolean.TRUE);
         serializedXml.getDomConfig().setParameter(XML_DECLARATION_NEED_TO_BE_OUTPUTTED,
