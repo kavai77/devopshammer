@@ -6,10 +6,7 @@ import com.smartdevs.engine.SamlEncoder;
 import com.smartdevs.entity.SamlResponse;
 import org.apache.commons.lang.StringUtils;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 @Path("saml")
@@ -22,24 +19,32 @@ public class SamlService {
     SamlDecoder samlDecoder;
 
     @POST
-    @Path("decode")
+    @Path("decode/{format}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public SamlResponse decode(String saml) {
-        if (StringUtils.isBlank(saml)) {
+    public SamlResponse decode(String saml, @PathParam( "format" ) String format) {
+        if (StringUtils.isBlank(saml) || StringUtils.isBlank( format )) {
             return EMPTY_RESPONSE;
         }
-        return samlDecoder.decodeSamlRequest(saml);
+        try {
+            return samlDecoder.decodeSamlRequest(saml, SamlResponse.BindingFormat.valueOf( format.toUpperCase() ));
+        } catch ( IllegalArgumentException e ) {
+            return EMPTY_RESPONSE;
+        }
     }
 
     @POST
-    @Path("encode")
+    @Path("encode/{format}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public SamlResponse encode(String saml) {
-        if (StringUtils.isBlank(saml)) {
+    public SamlResponse encode(String saml, @PathParam( "format" ) String format) {
+        if (StringUtils.isBlank(saml) || StringUtils.isBlank( format )) {
             return EMPTY_RESPONSE;
         }
-        return samlEncoder.encodeSamlRequest(saml);
+        try {
+            return samlEncoder.encodeSamlRequest( saml, SamlResponse.BindingFormat.valueOf( format.toUpperCase() ) );
+        } catch ( IllegalArgumentException e ) {
+            return EMPTY_RESPONSE;
+        }
     }
 }

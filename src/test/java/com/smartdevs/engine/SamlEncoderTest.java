@@ -37,11 +37,18 @@ public class SamlEncoderTest {
     }
 
     @Test
-    public void testEncodingSamlRequest() throws Exception {
-        String samlXML = "<root><bla/><bla2>text</bla2></root>";
-        SamlResponse samlResponse = samlEncoder.encodeSamlRequest(samlXML, SamlResponse.BindingFormat.POST );
+     public void testPostEncodingSamlRequest() throws Exception {
+        SamlResponse samlResponse = samlEncoder.encodeSamlRequest(SamlExamples.SAMPLE1.decoded, SamlResponse.BindingFormat.POST );
         assertEquals(SamlResponse.CodingType.ENCODED, samlResponse.getCodingType());
-        assertNull(samlResponse.getErrorMessage());
-        assertEquals("PHJvb3Q+PGJsYS8+PGJsYTI+dGV4dDwvYmxhMj48L3Jvb3Q+", samlResponse.getResult());
+        assertNull( samlResponse.getErrorMessage() );
+        assertEquals( SamlExamples.SAMPLE1.postEncoded, samlResponse.getResult() );
+    }
+
+    @Test
+    public void testRedirectEncodingSamlRequest() throws Exception {
+        SamlResponse samlResponse = samlEncoder.encodeSamlRequest(SamlExamples.SAMPLE1.decoded, SamlResponse.BindingFormat.REDIRECT );
+        assertEquals(SamlResponse.CodingType.ENCODED, samlResponse.getCodingType());
+        assertNull( samlResponse.getErrorMessage() );
+        assertEquals( SamlExamples.SAMPLE1.redirectEncoded, samlResponse.getResult() );
     }
 }

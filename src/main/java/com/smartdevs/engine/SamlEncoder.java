@@ -12,6 +12,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
@@ -49,7 +50,8 @@ public class SamlEncoder {
                         }
 
                         String encodedSaml = Base64.encodeBase64String( os.toByteArray() );
-                        return SamlResponse.encoded( encodedSaml, SamlResponse.BindingFormat.REDIRECT );
+                        String urlEncodedSaml = URLEncoder.encode( encodedSaml, "UTF-8" );
+                        return SamlResponse.encoded( urlEncodedSaml, SamlResponse.BindingFormat.REDIRECT );
                 } catch ( UnsupportedEncodingException e ) {
                         throw new RuntimeException( e );
                 } finally {
