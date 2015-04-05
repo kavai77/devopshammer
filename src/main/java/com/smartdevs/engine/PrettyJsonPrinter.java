@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.smartdevs.exception.PrettyJsonCreationException;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * Created by coby on 20/10/14.
@@ -12,16 +13,22 @@ import com.smartdevs.exception.PrettyJsonCreationException;
 public class PrettyJsonPrinter {
     private String json;
 
+    public PrettyJsonPrinter() {
+    }
+
     public PrettyJsonPrinter(String jsonString) {
         this.json = jsonString;
     }
 
     public String getPrettyJson() throws PrettyJsonCreationException {
         try {
-        JsonElement jsonElement = jsonParser().parse(json);
-        return gsonBuilder().toJson(jsonElement);
-        }
-        catch (Exception ex) {
+            if (StringUtils.isEmpty(json)) {
+                throw new PrettyJsonCreationException("Input should not be empty!");
+            }
+
+            JsonElement jsonElement = jsonParser().parse(json);
+            return gsonBuilder().toJson(jsonElement);
+        } catch (Exception ex) {
             throw new PrettyJsonCreationException(ex);
         }
     }
@@ -34,5 +41,7 @@ public class PrettyJsonPrinter {
         return new JsonParser();
     }
 
-
+    public void setJson(String json) {
+        this.json = json;
+    }
 }

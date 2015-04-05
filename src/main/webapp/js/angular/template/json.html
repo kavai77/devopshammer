@@ -1,3 +1,24 @@
-SON utils content...
-<hr />
-<a href="#/" class="btn btn-primary">Home</a>
+<div class="container">
+    <div class="jumbotron">
+        <h1 ng-show="firstAction === true">Validate / format JSON</h1>
+
+        <h1 ng-show="firstAction === false && jsonValid === 'true'" style="color: #3c763d">Valid / formatted JSON</h1>
+
+        <h1 ng-show="firstAction === false && jsonValid !== 'true'" style="color: #a94442">Invalid JSON</h1>
+
+        <form>
+            <div ng-class="{'form-group has-error': (firstAction === false && jsonValid !== 'true'), 'form-group has-success': (firstAction == false && jsonValid === 'true')}">
+                <p>
+                <textarea
+                        class="form-control"
+                        rows="15"
+                        ng-model="jsonInput"></textarea>
+                </p>
+
+                <p>
+                    <input type="button" class="btn btn-primary" ng-click="jsonInputChange()" value="Format"/>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>

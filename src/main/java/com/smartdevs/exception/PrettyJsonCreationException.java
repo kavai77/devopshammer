@@ -8,6 +8,10 @@ public class PrettyJsonCreationException extends Exception {
         super(message);
     }
 
+    public PrettyJsonCreationException(String message) {
+        super(message);
+    }
+
     public PrettyJsonCreationException(String message, Throwable throwable) {
         super(message, throwable);
     }
