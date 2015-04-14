@@ -1,0 +1,13 @@
+body {
+    background-image: url("../img/gery-texture-background.png");
+}
+
+.center {
+    text-align: center;
+}
+
+.alert-grey {
+    color: #5E5E5E;
+    background-color: #e2e2e2;
+    border-color: #5E5E5E;
+}

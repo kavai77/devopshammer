@@ -1,10 +1,13 @@
 <div class="container">
-    <div class="jumbotron">
-        <h1 ng-show="firstAction === true">Validate & format JSON</h1>
+    <div class="jumbotron center">
+        <div ng-show="firstAction === true" class="alert alert-grey" role="alert">ENTER JSON DATA</div>
 
-        <h1 ng-show="firstAction === false && jsonValid === 'true'" style="color: #3c763d">Valid & formatted JSON</h1>
+        <div ng-show="firstAction === false && jsonValid === 'true'" class="alert alert-success" role="alert">
+            FORMATTED
+        </div>
 
-        <h1 ng-show="firstAction === false && jsonValid !== 'true'" style="color: #a94442">Invalid JSON</h1>
+        <div ng-show="firstAction === false && jsonValid !== 'true'" class="alert alert-danger" role="alert">INVALID
+        </div>
 
         <form>
             <div ng-class="{'form-group has-error': (firstAction === false && jsonValid !== 'true'), 'form-group has-success': (firstAction == false && jsonValid === 'true')}">
