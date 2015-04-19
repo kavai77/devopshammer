@@ -11,4 +11,9 @@ devOpsHammer.config(function ($routeProvider) {
             templateUrl: 'js/angular/template/json.html',
             controller: 'jsonController'
         })
+
+        .when('/xml', {
+            templateUrl: 'js/angular/template/xml.html',
+            controller: 'xmlController'
+        })
 });

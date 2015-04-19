@@ -22,7 +22,10 @@ public class PrettyXmlPrinter {
     public static final String XML_DECLARATION_BEGIN = "<?xml";
     public static final String LS = "LS";
 
-    private final String unformattedXml;
+    private String unformattedXml;
+
+    public PrettyXmlPrinter() {
+    }
 
     public PrettyXmlPrinter(String unformattedXml) {
         this.unformattedXml = unformattedXml;
@@ -51,5 +54,9 @@ public class PrettyXmlPrinter {
     private Node createDocumentFromString() throws SAXException, IOException, ParserConfigurationException {
         final InputSource src = new InputSource(new StringReader(unformattedXml));
         return DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(src).getDocumentElement();
+    }
+
+    public void setUnformattedXml(String unformattedXml) {
+        this.unformattedXml = unformattedXml;
     }
 }

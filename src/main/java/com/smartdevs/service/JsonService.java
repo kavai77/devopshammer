@@ -29,7 +29,9 @@ public class JsonService {
         try {
             return new JsonResponse(true, prettyJsonPrinter.getPrettyJson()).toString();
         } catch (PrettyJsonCreationException e) {
-            return new JsonResponse(false, "").toString();
+            JsonResponse jsonResponse = new JsonResponse(false, "");
+            jsonResponse.setMessage(e.getCause().getCause().getMessage());
+            return jsonResponse.toString();
         }
     }
 }

@@ -5,25 +5,17 @@ import org.apache.commons.lang.StringUtils;
 import static org.apache.commons.codec.binary.Base64.encodeBase64;
 
 /**
- * Created by coby on 05/04/15.
+ * Created by coby on 14/04/15.
  */
-public class JsonResponse {
-    public static final String EMPTY_JSON = "\"\"";
+public class XmlResponse {
+    public static final String EMPTY_XML = "";
     private boolean valid;
-    private String json;
+    private String xml;
     private String message;
 
-    public JsonResponse(boolean valid, String json) {
+    public XmlResponse(boolean valid, String xml) {
         this.valid = valid;
-        this.json = json;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
+        this.xml = xml;
     }
 
     public boolean isValid() {
@@ -34,12 +26,20 @@ public class JsonResponse {
         this.valid = valid;
     }
 
-    public String getJson() {
-        return json;
+    public String getXml() {
+        return xml;
     }
 
-    public void setJson(String json) {
-        this.json = json;
+    public void setXml(String xml) {
+        this.xml = xml;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     private String getBase64EncodedAndHtmlReadyString(String input) {
@@ -52,11 +52,11 @@ public class JsonResponse {
     @Override
     public String toString() {
         if (!valid) {
-            json = EMPTY_JSON;
+            xml = EMPTY_XML;
         }
-
         return "{ \"valid\":" + "\"" + valid + "\"" +
-                ", \"json\":" + "\"" + getBase64EncodedAndHtmlReadyString(json) + "\"" +
+                ", \"xml\":" + "\"" + getBase64EncodedAndHtmlReadyString(xml) + "\"" +
                 ", \"message\":" + "\"" + getBase64EncodedAndHtmlReadyString(message) + "\"}";
     }
+
 }

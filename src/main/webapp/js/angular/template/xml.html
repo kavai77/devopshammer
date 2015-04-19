@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="jumbotron center">
+        <div ng-show="hasNoContent()" class="alert alert-grey" role="alert">ENTER XML DATA</div>
+
+        <div ng-show="hasValidContent()" class="alert alert-success" role="alert">FORMATTED</div>
+
+        <div ng-show="hasInvalidContent()" class="alert alert-danger" role="alert">INVALID {{message}}</div>
+
+        <form>
+            <div ng-class="{'form-group has-error': (firstAction === false && xmlValid !== 'true'), 'form-group has-success': (firstAction == false && xmlValid === 'true')}">
+                <p>
+                    <textarea
+                            class="form-control"
+                            rows="15"
+                            ng-model="xmlInput"
+                            html-text>
+                    </textarea>
+                </p>
+
+                <p>
+                    <input type="button" class="btn btn-primary" ng-click="xmlInputChange()" value="Format"/>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>

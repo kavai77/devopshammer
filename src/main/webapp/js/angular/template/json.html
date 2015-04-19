@@ -1,21 +1,21 @@
 <div class="container">
     <div class="jumbotron center">
-        <div ng-show="firstAction === true" class="alert alert-grey" role="alert">ENTER JSON DATA</div>
+        <div ng-show="hasNoContent()" class="alert alert-grey">ENTER JSON DATA</div>
 
-        <div ng-show="firstAction === false && jsonValid === 'true'" class="alert alert-success" role="alert">
+        <div ng-show="hasValidContent()" class="alert alert-success" role="alert">
             FORMATTED
         </div>
 
-        <div ng-show="firstAction === false && jsonValid !== 'true'" class="alert alert-danger" role="alert">INVALID
-        </div>
+        <div ng-show="hasInvalidContent()" class="alert alert-danger" role="alert">INVALID {{message}}</div>
 
         <form>
             <div ng-class="{'form-group has-error': (firstAction === false && jsonValid !== 'true'), 'form-group has-success': (firstAction == false && jsonValid === 'true')}">
                 <p>
-                <textarea
-                        class="form-control"
-                        rows="15"
-                        ng-model="jsonInput"></textarea>
+                    <textarea
+                            class="form-control"
+                            rows="15"
+                            ng-model="jsonInput">
+                    </textarea>
                 </p>
 
                 <p>
