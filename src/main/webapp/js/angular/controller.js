@@ -7,6 +7,10 @@ devOpsHammer.controller('jsonController', ['$scope', '$http', function ($scope, 
     $scope.message = "";
     $scope.jsonInput = "";
     $scope.jsonValid = "false";
+    $scope.editorOptions = {
+        lineNumbers: true,
+        mode: 'scheme'
+    };
 
     $scope.hasNoContent = function () {
         return $scope.firstAction === true;
@@ -48,6 +52,10 @@ devOpsHammer.controller('xmlController', ['$scope', '$http', function ($scope, $
     $scope.message = "";
     $scope.xmlInput = "";
     $scope.xmlValid = "false";
+    $scope.editorOptions = {
+        lineNumbers: true,
+        mode: 'scheme'
+    };
 
     $scope.hasNoContent = function () {
         return $scope.firstAction === true;

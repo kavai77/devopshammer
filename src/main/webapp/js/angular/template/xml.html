@@ -9,12 +9,8 @@
         <form>
             <div ng-class="{'form-group has-error': (firstAction === false && xmlValid !== 'true'), 'form-group has-success': (firstAction == false && xmlValid === 'true')}">
                 <p>
-                    <textarea
-                            class="form-control"
-                            rows="15"
-                            ng-model="xmlInput"
-                            html-text>
-                    </textarea>
+                    <ui-codemirror class="text-left" ui-codemirror-opts="editorOptions"
+                                   ng-model="xmlInput"></ui-codemirror>
                 </p>
 
                 <p>

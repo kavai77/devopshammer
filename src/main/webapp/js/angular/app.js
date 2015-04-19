@@ -1,2 +1,2 @@
 // module
-var devOpsHammer = angular.module('devOpsHammer', ['ngRoute']);
+var devOpsHammer = angular.module('devOpsHammer', ['ngRoute', 'ui.codemirror']);
