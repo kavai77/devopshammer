@@ -13,6 +13,7 @@
         <appengine.app.version>1</appengine.app.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jersey.version>1.18.1</jersey.version>
+        <appengine.version>1.9.19</appengine.version>
     </properties>
 
     <prerequisites>
@@ -24,7 +25,7 @@
         <dependency>
             <groupId>com.google.appengine</groupId>
             <artifactId>appengine-api-1.0-sdk</artifactId>
-            <version>1.9.18</version>
+            <version>${appengine.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
@@ -100,13 +101,13 @@
         <dependency>
             <groupId>com.google.appengine</groupId>
             <artifactId>appengine-testing</artifactId>
-            <version>1.9.12</version>
+            <version>${appengine.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.google.appengine</groupId>
             <artifactId>appengine-api-stubs</artifactId>
-            <version>1.9.12</version>
+            <version>${appengine.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -137,8 +138,8 @@
                 <version>3.1</version>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
 
@@ -162,12 +163,12 @@
             <plugin>
                 <groupId>com.google.appengine</groupId>
                 <artifactId>appengine-maven-plugin</artifactId>
-                <version>1.9.12</version>
+                <version>${appengine.version}</version>
                 <configuration>
                     <enableJarClasses>false</enableJarClasses>
                     <disableUpdateCheck>true</disableUpdateCheck>
-                    <proxyHost>http://http-proxy.health.ge.com:88</proxyHost>
-                    <proxyHttps>http://http-proxy.health.ge.com:88</proxyHttps>
+                    <!--<proxyHost>http://http-proxy.health.ge.com:88</proxyHost>-->
+                    <!--<proxyHttps>http://http-proxy.health.ge.com:88</proxyHttps>-->
                     <!-- Comment in the below snippet to bind to all IPs instead of just localhost -->
                     <!--<address>0.0.0.0</address>-->
                     <!--<port>8080</port>-->

@@ -2,7 +2,6 @@ package com.smartdevs.service;
 
 import org.apache.commons.lang.CharEncoding;
 
-import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -18,16 +17,14 @@ import java.net.URLEncoder;
 public class URLCodeService {
     @POST
     @Path("decode")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
     public String decode(String data) throws UnsupportedEncodingException {
         return URLDecoder.decode(data, CharEncoding.UTF_8);
     }
 
     @POST
     @Path("encode")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
     public String encode(String data) throws UnsupportedEncodingException {
         return URLEncoder.encode(data, CharEncoding.UTF_8);
     }
