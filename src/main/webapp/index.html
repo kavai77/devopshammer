@@ -1,39 +1,41 @@
 <!DOCTYPE html>
 <html ng-app="devOpsHammer">
 <head>
-  <link rel="stylesheet" href="css/style.css"/>
-  <link rel="stylesheet" href="css/bootstrap.css" />
-  <link rel="stylesheet" href="css/bootstrap-theme.css"/>
-  <link rel="stylesheet" href="css/font-awesome.css" />
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/bootstrap-theme.css"/>
+    <link rel="stylesheet" href="css/font-awesome.css"/>
+    <link rel="stylesheet" href="css/codemirror.css"/>
 
-  <script src="js/angular/resource/angular.js"></script>
-  <script src="js/angular/resource/angular-route.js"></script>
-  <script src="js/angular/app.js"></script>
-  <script src="js/angular/route.js"></script>
-  <script src="js/angular/controller.js"></script>
+    <script src="js/codemirror/codemirror.js"></script>
+    <script src="js/angular/resource/angular.js"></script>
+    <script src="js/codemirror/ui-codemirror.js"></script>
+    <script src="js/angular/resource/angular-route.js"></script>
+    <script src="js/angular/app.js"></script>
+    <script src="js/angular/route.js"></script>
+    <script src="js/angular/controller.js"></script>
 </head>
 <body>
 
 <header>
-  <nav class="navbar navbar-default">
-    <div class="container">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="#/">DevOps Hammer</a>
-      </div>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#/">DevOps Hammer</a>
+            </div>
 
             <ul class="nav navbar-nav navbar-left">
                 <li><a href="#/json"><i></i>{ JSON }</a></li>
                 <li><a href="#/xml"><i></i>< XML ></a></li>
-                <li><a href="#/url"><i></i>URL%ENCODE</a></li>
+                <li><a href="#/url"><i></i>%3CURL%3E</a></li>
             </ul>
-      </ul>
 
-    </div>
-  </nav>
+        </div>
+    </nav>
 </header>
 
 <div class="container">
-  <div ng-view></div>
+    <div ng-view></div>
 </div>
 
 </body>
