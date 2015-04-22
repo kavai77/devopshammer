@@ -1,8 +1,28 @@
+devOpsHammer.controller('homeController', ['$scope', '$http', function ($scope, $http) {
+}]);
+
 devOpsHammer.controller('jsonController', ['$scope', '$http', function ($scope, $http) {
 
     $scope.firstAction = true;
+    $scope.message = "";
     $scope.jsonInput = "";
     $scope.jsonValid = "false";
+    $scope.editorOptions = {
+        lineNumbers: true,
+        mode: 'scheme'
+    };
+
+    $scope.hasNoContent = function () {
+        return $scope.firstAction === true;
+    };
+
+    $scope.hasValidContent = function () {
+        return $scope.firstAction === false && $scope.jsonValid === 'true';
+    };
+
+    $scope.hasInvalidContent = function () {
+        return $scope.firstAction === false && $scope.jsonValid !== 'true';
+    };
 
     $scope.jsonInputChange = function () {
         $scope.firstAction = false;
@@ -13,8 +33,9 @@ devOpsHammer.controller('jsonController', ['$scope', '$http', function ($scope, 
                 // this callback will be called asynchronously
                 // when the response is available
                 $scope.jsonValid = data.valid;
+                $scope.message = "- " + atob(data.message);
                 if (data.valid === "true") {
-                    $scope.jsonInput = JSON.stringify(data.json, null, 4);
+                    $scope.jsonInput = atob(data.json);
                 }
             }).
             error(function (data, status, headers, config) {
