@@ -28,7 +28,7 @@ devOpsHammer.controller('jsonController', ['$scope', '$http', function ($scope, 
         $scope.firstAction = false;
 
         // Simple POST request example (passing data) :
-        $http.post('http://localhost:8080/json/pretty', $scope.jsonInput).
+        $http.post('/json/pretty', $scope.jsonInput).
             success(function (data, status, headers, config) {
                 // this callback will be called asynchronously
                 // when the response is available
@@ -73,7 +73,7 @@ devOpsHammer.controller('xmlController', ['$scope', '$http', function ($scope, $
         $scope.firstAction = false;
 
         // Simple POST request example (passing data) :
-        $http.post('http://localhost:8080/xml/pretty', $scope.xmlInput).
+        $http.post('/xml/pretty', $scope.xmlInput).
             success(function (data, status, headers, config) {
                 // this callback will be called asynchronously
                 // when the response is available
@@ -102,7 +102,7 @@ $scope.urlInput = "";
             $scope.firstAction = false;
 
             // Simple POST request example (passing data) :
-            $http.post('http://localhost:8080/url/encode', $scope.urlInput).
+            $http.post('/url/encode', $scope.urlInput).
                 success(function (data, status, headers, config) {
                     // this callback will be called asynchronously
                     // when the response is available
@@ -120,7 +120,7 @@ $scope.urlInput = "";
                 $scope.firstAction = false;
 
                 // Simple POST request example (passing data) :
-                $http.post('http://localhost:8080/url/decode', $scope.urlInput).
+                $http.post('/url/decode', $scope.urlInput).
                     success(function (data, status, headers, config) {
                         // this callback will be called asynchronously
                         // when the response is available
