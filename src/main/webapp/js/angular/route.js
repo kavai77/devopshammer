@@ -18,7 +18,12 @@ devOpsHammer.config(function ($routeProvider) {
         })
 
         .when('/url', {
-                    templateUrl: 'js/angular/template/url.html',
-                    controller: 'urlController'
-                })
+            templateUrl: 'js/angular/template/url.html',
+            controller: 'urlController'
+        })
+
+        .when('/base64', {
+            templateUrl: 'js/angular/template/base64.html',
+            controller: 'base64Controller'
+        })
 });

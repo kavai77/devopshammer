@@ -93,45 +93,88 @@ devOpsHammer.controller('xmlController', ['$scope', '$http', function ($scope, $
 }]);
 devOpsHammer.controller('urlController', ['$scope', '$http', function ($scope, $http) {
 
-$scope.urlInput = "";
+    $scope.urlInput = "";
     $scope.firstAction = true;
     $scope.urlInput = "";
     $scope.urlCoded = "na";
 
     $scope.urlInputEncode = function () {
-            $scope.firstAction = false;
+        $scope.firstAction = false;
 
-            // Simple POST request example (passing data) :
-            $http.post('/url/encode', $scope.urlInput).
-                success(function (data, status, headers, config) {
-                    // this callback will be called asynchronously
-                    // when the response is available
-                    $scope.urlCoded = "encoded";
-                    $scope.urlInput = data;
-                }).
-                error(function (data, status, headers, config) {
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
-                    console.log("error while calling validation service");
-                });
+        // Simple POST request example (passing data) :
+        $http.post('/url/encode', $scope.urlInput).
+            success(function (data, status, headers, config) {
+                // this callback will be called asynchronously
+                // when the response is available
+                $scope.urlCoded = "encoded";
+                $scope.urlInput = data;
+            }).
+            error(function (data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                console.log("error while calling validation service");
+            });
     };
 
     $scope.urlInputDecode = function () {
-                $scope.firstAction = false;
+        $scope.firstAction = false;
 
-                // Simple POST request example (passing data) :
-                $http.post('/url/decode', $scope.urlInput).
-                    success(function (data, status, headers, config) {
-                        // this callback will be called asynchronously
-                        // when the response is available
-                        $scope.urlCoded = "decoded";
-                        $scope.urlInput = data;
-                    }).
-                    error(function (data, status, headers, config) {
-                        // called asynchronously if an error occurs
-                        // or server returns response with an error status.
-                        console.log("error while calling validation service");
-                    });
-        };
+        // Simple POST request example (passing data) :
+        $http.post('/url/decode', $scope.urlInput).
+            success(function (data, status, headers, config) {
+                // this callback will be called asynchronously
+                // when the response is available
+                $scope.urlCoded = "decoded";
+                $scope.urlInput = data;
+            }).
+            error(function (data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                console.log("error while calling validation service");
+            });
+    };
+}]);
+
+devOpsHammer.controller('base64Controller', ['$scope', '$http', function ($scope, $http) {
+
+    $scope.base64Input = "";
+    $scope.firstAction = true;
+    $scope.base64Coded = "na";
+
+    $scope.base64InputEncode = function () {
+        $scope.firstAction = false;
+
+        // Simple POST request example (passing data) :
+        $http.post('/base64/encode', $scope.base64Input).
+            success(function (data, status, headers, config) {
+                // this callback will be called asynchronously
+                // when the response is available
+                $scope.base64Coded = "encoded";
+                $scope.base64Input = data;
+            }).
+            error(function (data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                console.log("error while calling validation service");
+            });
+    };
+
+    $scope.base64InputDecode = function () {
+        $scope.firstAction = false;
+
+        // Simple POST request example (passing data) :
+        $http.post('/base64/decode', $scope.base64Input).
+            success(function (data, status, headers, config) {
+                // this callback will be called asynchronously
+                // when the response is available
+                $scope.base64Coded = "decoded";
+                $scope.base64Input = data;
+            }).
+            error(function (data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                console.log("error while calling validation service");
+            });
+    };
 }]);
 
