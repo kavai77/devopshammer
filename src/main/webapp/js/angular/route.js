@@ -26,4 +26,8 @@ devOpsHammer.config(function ($routeProvider) {
             templateUrl: 'js/angular/template/base64.html',
             controller: 'base64Controller'
         })
+
+        .otherwise({
+            redirectTo: '/'
+        })
 });
