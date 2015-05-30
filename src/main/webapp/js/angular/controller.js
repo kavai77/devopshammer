@@ -95,8 +95,11 @@ devOpsHammer.controller('urlController', ['$scope', '$http', function ($scope, $
 
     $scope.urlInput = "";
     $scope.firstAction = true;
-    $scope.urlInput = "";
     $scope.urlCoded = "na";
+    $scope.editorOptions = {
+        lineNumbers: true,
+        mode: 'scheme'
+    };
 
     $scope.urlInputEncode = function () {
         $scope.firstAction = false;
@@ -140,6 +143,10 @@ devOpsHammer.controller('base64Controller', ['$scope', '$http', function ($scope
     $scope.base64Input = "";
     $scope.firstAction = true;
     $scope.base64Coded = "na";
+    $scope.editorOptions = {
+        lineNumbers: true,
+        mode: 'scheme'
+    };
 
     $scope.base64InputEncode = function () {
         $scope.firstAction = false;
