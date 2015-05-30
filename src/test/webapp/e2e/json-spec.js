@@ -18,15 +18,17 @@ describe('json formatter', function () {
     });
 
     //TODO: how to pass input to ui-codemirror????
-/*    it('shuld say error message when invalid input', function () {
+    /*
+    it('shuld say error message when invalid input', function () {
         var messageError = element(by.css('div.alert-danger'));
 
-        element(by.css('padding-right: 0.1px;')).sendKeys('{');
+        element(by.model('jsonInput')).sendKeys('{');
 
         element(by.id('formatJsonButtonId')).click();
 
         expect(messageError.isDisplayed()).toBeTruthy();
-    });*/
+    });
+    */
 });
 
 
