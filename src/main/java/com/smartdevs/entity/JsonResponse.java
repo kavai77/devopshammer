@@ -7,23 +7,14 @@ import static org.apache.commons.codec.binary.Base64.encodeBase64;
 /**
  * Created by coby on 05/04/15.
  */
-public class JsonResponse {
+public class JsonResponse extends Response {
     public static final String EMPTY_JSON = "\"\"";
     private boolean valid;
     private String json;
-    private String message;
 
     public JsonResponse(boolean valid, String json) {
         this.valid = valid;
         this.json = json;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 
     public boolean isValid() {

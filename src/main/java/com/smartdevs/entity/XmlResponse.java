@@ -7,11 +7,10 @@ import static org.apache.commons.codec.binary.Base64.encodeBase64;
 /**
  * Created by coby on 14/04/15.
  */
-public class XmlResponse {
+public class XmlResponse extends Response {
     public static final String EMPTY_XML = "";
     private boolean valid;
     private String xml;
-    private String message;
 
     public XmlResponse(boolean valid, String xml) {
         this.valid = valid;
@@ -32,14 +31,6 @@ public class XmlResponse {
 
     public void setXml(String xml) {
         this.xml = xml;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 
     private String getBase64EncodedAndHtmlReadyString(String input) {

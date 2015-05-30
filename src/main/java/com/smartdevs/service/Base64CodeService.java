@@ -1,5 +1,7 @@
 package com.smartdevs.service;
 
+import com.smartdevs.annotation.MaxInputLength;
+import com.smartdevs.exception.InputLengthException;
 import org.apache.commons.codec.binary.Base64;
 
 import javax.ws.rs.POST;
@@ -16,14 +18,16 @@ public class Base64CodeService {
     @POST
     @Path("decode")
     @Produces(MediaType.TEXT_PLAIN)
-    public String decode(String data) throws UnsupportedEncodingException {
+    @MaxInputLength(value = 50)
+    public String decode(String data) throws UnsupportedEncodingException, InputLengthException {
         return new String(Base64.decodeBase64(data), "UTF-8");
     }
 
     @POST
     @Path("encode")
     @Produces(MediaType.TEXT_PLAIN)
-    public String encode(String data) throws UnsupportedEncodingException {
+    @MaxInputLength(value = 50)
+    public String encode(String data) throws UnsupportedEncodingException, InputLengthException {
         return Base64.encodeBase64String(data.getBytes("UTF-8"));
     }
 }

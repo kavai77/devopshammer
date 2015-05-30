@@ -1,19 +1,9 @@
 package com.smartdevs.entity;
 
-public class SamlResponse {
-        public enum CodingType {
-                ENCODED, DECODED, ERROR
-        }
-
-        public enum BindingFormat {
-                REDIRECT, POST
-        }
-
+public class SamlResponse extends Response {
         private String result;
         private CodingType codingType;
         private BindingFormat bindingFormat;
-        private String errorMessage;
-
         public SamlResponse() {
         }
 
@@ -35,8 +25,8 @@ public class SamlResponse {
 
         public static SamlResponse error( String errorMessage ) {
                 SamlResponse samlResponse = new SamlResponse();
-                samlResponse.setCodingType( CodingType.ERROR );
-                samlResponse.setErrorMessage( errorMessage );
+                samlResponse.setCodingType(CodingType.ERROR);
+                samlResponse.setMessage(errorMessage);
                 return samlResponse;
         }
 
@@ -56,19 +46,19 @@ public class SamlResponse {
                 this.codingType = codingType;
         }
 
-        public String getErrorMessage() {
-                return errorMessage;
-        }
-
-        public void setErrorMessage( String errorMessage ) {
-                this.errorMessage = errorMessage;
-        }
-
         public BindingFormat getBindingFormat() {
                 return bindingFormat;
         }
 
         public void setBindingFormat( BindingFormat bindingFormat ) {
                 this.bindingFormat = bindingFormat;
+        }
+
+        public enum CodingType {
+                ENCODED, DECODED, ERROR
+        }
+
+        public enum BindingFormat {
+                REDIRECT, POST
         }
 }

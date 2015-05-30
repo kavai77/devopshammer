@@ -1,6 +1,5 @@
 package com.smartdevs.engine;
 
-import com.smartdevs.engine.SamlEncoder;
 import com.smartdevs.entity.SamlResponse;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,7 +39,7 @@ public class SamlEncoderTest {
      public void testPostEncodingSamlRequest() throws Exception {
         SamlResponse samlResponse = samlEncoder.encodeSamlRequest(SamlExamples.SAMPLE1.decoded, SamlResponse.BindingFormat.POST );
         assertEquals(SamlResponse.CodingType.ENCODED, samlResponse.getCodingType());
-        assertNull( samlResponse.getErrorMessage() );
+        assertNull(samlResponse.getMessage());
         assertEquals( SamlExamples.SAMPLE1.postEncoded, samlResponse.getResult() );
     }
 
@@ -48,7 +47,7 @@ public class SamlEncoderTest {
     public void testRedirectEncodingSamlRequest() throws Exception {
         SamlResponse samlResponse = samlEncoder.encodeSamlRequest(SamlExamples.SAMPLE1.decoded, SamlResponse.BindingFormat.REDIRECT );
         assertEquals(SamlResponse.CodingType.ENCODED, samlResponse.getCodingType());
-        assertNull( samlResponse.getErrorMessage() );
+        assertNull(samlResponse.getMessage());
         assertEquals( SamlExamples.SAMPLE1.redirectEncoded, samlResponse.getResult() );
     }
 }
