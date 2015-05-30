@@ -11,11 +11,9 @@ import org.aopalliance.intercept.MethodInvocation;
 public class InputLengthInterceptor implements MethodInterceptor {
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
-        if (invocation.getArguments().length < 1 ||
-                !(invocation.getArguments()[0].getClass().isAssignableFrom(String.class))) {
-
+        if (invocation.getArguments().length < 1 || !(invocation.getArguments()[0] instanceof String)) {
             throw new RuntimeException(
-                    "The first argument of the annotated method MUST be a String or MUST be inherited from a String!");
+                    "The first argument of the annotated method MUST be a String!");
         }
 
         int limit = invocation.getMethod().getAnnotation(MaxInputLength.class).value();
