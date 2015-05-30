@@ -8,7 +8,7 @@ import org.aopalliance.intercept.MethodInvocation;
 /**
  * Created by johnnym on 30/05/15.
  */
-public class InputSizeInterceptor implements MethodInterceptor {
+public class InputLengthInterceptor implements MethodInterceptor {
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
         if (invocation.getArguments().length < 1 ||
