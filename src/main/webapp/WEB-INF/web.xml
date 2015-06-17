@@ -17,4 +17,14 @@
     <listener>
         <listener-class>com.smartdevs.MyGuiceServletContextListener</listener-class>
     </listener>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>star</web-resource-name>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
 </web-app>
