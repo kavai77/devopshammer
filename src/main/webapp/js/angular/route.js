@@ -27,11 +27,6 @@ devOpsHammer.config(function ($routeProvider) {
             controller: 'base64Controller'
         })
 
-        .when('/sequence', {
-            templateUrl: 'js/angular/template/sequence.html',
-            controller: 'sequenceController'
-        })
-
         .otherwise({
             redirectTo: '/'
         })
