@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="jumbotron center">
+        <div class="alert alert-grey">ENTER SEQUENCE DIAGRAM DATA</div>
+
+        <!-- using on controller. -->
+        <div ng-controller="sequenceController">
+            <div ng-bind-html="svg"></div>
+        </div>
+
+        <!-- using directive by element. -->
+        <sequence-diagram>
+            A->B: E
+            A->B: Does something
+        </sequence-diagram>
+
+        <!-- using directive by attribute. -->
+        <div sequence-diagram>
+            A->B: A
+        </div>
+
+        <!-- using directive by attribute with value. -->
+        <div ng-init="code='a->b: does something'" sequence-diagram="{{code}}">
+        </div>
+
+        <!-- using directive by class "language-sequence". -->
+        <pre><code class="language-sequence">
+            A->B: C
+            A->B: Does something
+        </code></pre>
+    </div>
+</div>

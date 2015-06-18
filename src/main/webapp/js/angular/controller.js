@@ -185,3 +185,7 @@ devOpsHammer.controller('base64Controller', ['$scope', '$http', function ($scope
     };
 }]);
 
+devOpsHammer.controller("sequenceController", ["$scope", "sequenceDiagram", "$sce", function($scope, sequence, $sce){
+    $scope.svg = $sce.trustAsHtml(sequence.render("A->B: Does something"));
+}]);
+
