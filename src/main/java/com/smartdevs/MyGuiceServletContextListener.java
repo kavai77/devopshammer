@@ -5,7 +5,7 @@ import com.google.inject.Injector;
 import com.google.inject.matcher.Matchers;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.google.inject.servlet.ServletModule;
-import com.smartdevs.annotation.MaxInputLength;
+import com.smartdevs.annotation.MaxInputLengthValidator;
 import com.smartdevs.interceptor.InputLengthInterceptor;
 import com.sun.jersey.api.core.PackagesResourceConfig;
 import com.sun.jersey.api.core.ResourceConfig;
@@ -29,7 +29,7 @@ public class MyGuiceServletContextListener extends GuiceServletContextListener {
             serve("/*").with(GuiceContainer.class);
 
             bindInterceptor(Matchers.any(),
-                    Matchers.annotatedWith(MaxInputLength.class),
+                    Matchers.annotatedWith(MaxInputLengthValidator.class),
                     new InputLengthInterceptor());
         }
     }

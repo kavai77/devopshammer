@@ -1,5 +1,6 @@
 package com.smartdevs.service;
 
+import com.smartdevs.annotation.MaxInputLengthValidator;
 import org.apache.commons.lang.CharEncoding;
 
 import javax.ws.rs.POST;
@@ -18,6 +19,7 @@ public class URLCodeService {
     @POST
     @Path("decode")
     @Produces(MediaType.TEXT_PLAIN)
+    @MaxInputLengthValidator
     public String decode(String data) throws UnsupportedEncodingException {
         return URLDecoder.decode(data, CharEncoding.UTF_8);
     }
@@ -25,6 +27,7 @@ public class URLCodeService {
     @POST
     @Path("encode")
     @Produces(MediaType.TEXT_PLAIN)
+    @MaxInputLengthValidator
     public String encode(String data) throws UnsupportedEncodingException {
         return URLEncoder.encode(data, CharEncoding.UTF_8);
     }

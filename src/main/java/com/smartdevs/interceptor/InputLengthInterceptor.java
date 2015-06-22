@@ -1,6 +1,6 @@
 package com.smartdevs.interceptor;
 
-import com.smartdevs.annotation.MaxInputLength;
+import com.smartdevs.annotation.MaxInputLengthValidator;
 import com.smartdevs.exception.InputLengthException;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
@@ -16,7 +16,7 @@ public class InputLengthInterceptor implements MethodInterceptor {
                     "The first argument of the annotated method MUST be a String!");
         }
 
-        int limit = invocation.getMethod().getAnnotation(MaxInputLength.class).value();
+        int limit = invocation.getMethod().getAnnotation(MaxInputLengthValidator.class).value();
         int size = ((String) invocation.getArguments()[0]).length();
 
         if (size > limit) {

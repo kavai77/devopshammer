@@ -11,6 +11,6 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface MaxInputLength {
-    int value();
+public @interface MaxInputLengthValidator {
+    int value() default 1 << 20;
 }

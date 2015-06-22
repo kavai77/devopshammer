@@ -1,6 +1,7 @@
 package com.smartdevs.service;
 
 import com.google.inject.Inject;
+import com.smartdevs.annotation.MaxInputLengthValidator;
 import com.smartdevs.engine.SamlDecoder;
 import com.smartdevs.engine.SamlEncoder;
 import com.smartdevs.entity.SamlResponse;
@@ -22,6 +23,7 @@ public class SamlService {
     @Path("decode/{format}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @MaxInputLengthValidator
     public SamlResponse decode(String saml, @PathParam( "format" ) String format) {
         if (StringUtils.isBlank(saml) || StringUtils.isBlank( format )) {
             return EMPTY_RESPONSE;
@@ -37,6 +39,7 @@ public class SamlService {
     @Path("encode/{format}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @MaxInputLengthValidator
     public SamlResponse encode(String saml, @PathParam( "format" ) String format) {
         if (StringUtils.isBlank(saml) || StringUtils.isBlank( format )) {
             return EMPTY_RESPONSE;

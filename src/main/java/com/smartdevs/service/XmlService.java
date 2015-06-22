@@ -1,6 +1,7 @@
 package com.smartdevs.service;
 
 import com.google.inject.Inject;
+import com.smartdevs.annotation.MaxInputLengthValidator;
 import com.smartdevs.engine.PrettyXmlPrinter;
 import com.smartdevs.entity.XmlResponse;
 
@@ -23,6 +24,7 @@ public class XmlService {
     @Path("pretty")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @MaxInputLengthValidator
     public String decode(String xml) throws UnsupportedEncodingException {
         prettyXmlPrinter.setUnformattedXml(xml);
         try {

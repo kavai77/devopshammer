@@ -1,6 +1,7 @@
 package com.smartdevs.service;
 
 import com.google.inject.Inject;
+import com.smartdevs.annotation.MaxInputLengthValidator;
 import com.smartdevs.engine.PrettyJsonPrinter;
 import com.smartdevs.entity.JsonResponse;
 import com.smartdevs.exception.PrettyJsonCreationException;
@@ -24,6 +25,7 @@ public class JsonService {
     @Path("pretty")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @MaxInputLengthValidator
     public String decode(String json) throws UnsupportedEncodingException {
         prettyJsonPrinter.setJson(json);
         try {
