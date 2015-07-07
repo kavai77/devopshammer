@@ -17,11 +17,6 @@ public class PrettyXmlPrinterTest {
     }
 
     @Test(expected = BadRequestException.class)
-    public void failsWhenXmlInputIsNull() throws Exception {
-        underTest.getPrettyXml(null);
-    }
-
-    @Test(expected = BadRequestException.class)
     public void failsWhenXmRootNodeIsMissingTheClosingTag() throws Exception {
         underTest.getPrettyXml("<rootWithNoCloseTag>");
     }

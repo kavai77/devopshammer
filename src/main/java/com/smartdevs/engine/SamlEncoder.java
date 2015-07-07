@@ -19,9 +19,7 @@ import java.util.zip.Deflater;
 
 public class SamlEncoder {
     public SamlResponse encodeSamlRequest(String saml, SamlResponse.BindingFormat bindingFormat) {
-        if (!isWellFormattedXML(saml)) {
-            throw new BadRequestException("The XML is not well formatted");
-        }
+        XMLFormatChecker.checkXMLFormat(saml);
         switch (bindingFormat) {
             case POST:
                 return encodePostFormat(saml);
@@ -60,16 +58,5 @@ public class SamlEncoder {
         }
     }
 
-    private boolean isWellFormattedXML(String saml) {
-        try (ByteArrayInputStream stream = new ByteArrayInputStream(saml.getBytes(StandardCharsets.UTF_8))) {
-            DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(stream);
-            return true;
-        } catch (SAXException e) {
-            return false;
-        } catch (IOException e) {
-            return false;
-        } catch (ParserConfigurationException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
 }
