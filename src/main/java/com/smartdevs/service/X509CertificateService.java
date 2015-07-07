@@ -1,6 +1,7 @@
 package com.smartdevs.service;
 
 import com.google.inject.Inject;
+import com.smartdevs.annotation.EmptyInputValidator;
 import com.smartdevs.annotation.MaxInputLengthValidator;
 import com.smartdevs.engine.X509CertificateDecoder;
 
@@ -25,10 +26,11 @@ public class X509CertificateService {
     @Path("decode")
     @Produces(MediaType.APPLICATION_JSON)
     @MaxInputLengthValidator
+    @EmptyInputValidator
     public String decode(String rawCert) throws UnsupportedEncodingException {
         try {
             decoder.decodeCertificate(rawCert);
-        }  catch (CertificateException e) {
+        } catch (CertificateException e) {
             throw new WebApplicationException(Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build());
         }
         return null;

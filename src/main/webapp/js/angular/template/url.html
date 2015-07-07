@@ -1,18 +1,18 @@
 <div class="container">
     <div class="jumbotron center">
-        <div ng-show="firstAction === true" class="alert alert-grey" role="alert">ENTER DATA</div>
+        <div ng-show="inputEmpty === true" class="alert alert-grey" role="alert">ENTER DATA</div>
 
-        <div ng-show="firstAction === false && urlCoded === 'encoded'" class="alert alert-success" role="alert">
-            ENCODED
+        <div ng-show="inputEmpty === false && urlCoded === 'encoded'" class="alert alert-success" role="alert">
+        ENCODED
         </div>
 
-        <div ng-show="firstAction === false && urlCoded === 'decoded'" class="alert alert-success" role="alert">
-            DECODED
+        <div ng-show="inputEmpty === false && urlCoded === 'decoded'" class="alert alert-success" role="alert">
+        DECODED
         </div>
 
         <form>
-            <div ng-class="{'form-group has-error': (firstAction === false && urlCoded === 'na'), 'form-group has-success': (firstAction == false && urlCoded !== 'na')}">
-                <p>
+            <div ng-class="{'form-group has-error': (inputEmpty === false && urlCoded === 'na'), 'form-group has-success': (inputEmpty == false && urlCoded !== 'na')}">
+            <p>
                     <ui-codemirror class="text-left" ui-codemirror-opts="editorOptions"
                                    ng-model="urlInput"></ui-codemirror>
                 </p>

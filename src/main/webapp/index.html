@@ -34,6 +34,10 @@
             ga('create', 'UA-63443916-1', 'auto');
             ga('send', 'pageview');
         }
+
+        String.prototype.isEmpty = function () {
+            return (this.length === 0 || !this.trim());
+        };
     </script>
 </head>
 <body>

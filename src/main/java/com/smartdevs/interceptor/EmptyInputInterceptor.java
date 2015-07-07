@@ -1,17 +1,17 @@
 package com.smartdevs.interceptor;
 
-import com.smartdevs.annotation.MaxInputLengthValidator;
 import com.smartdevs.exception.InputLengthException;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.logging.Logger;
 
 /**
- * Created by johnnym on 30/05/15.
+ * Created by cskavai on 07/07/15.
  */
-public class InputLengthInterceptor implements MethodInterceptor {
-    private static Logger LOGGER = Logger.getLogger(InputLengthInterceptor.class.getName());
+public class EmptyInputInterceptor implements MethodInterceptor {
+    private static Logger LOGGER = Logger.getLogger(EmptyInputInterceptor.class.getName());
 
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
@@ -20,11 +20,8 @@ public class InputLengthInterceptor implements MethodInterceptor {
             return invocation.proceed();
         }
 
-        int limit = invocation.getMethod().getAnnotation(MaxInputLengthValidator.class).value();
-        int size = ((String) invocation.getArguments()[0]).length();
-
-        if (size > limit) {
-            throw new InputLengthException("Input size (" + size + ") exceeds limit (" + limit + ")!");
+        if (StringUtils.isBlank((String) invocation.getArguments()[0])) {
+            throw new InputLengthException("Input should not be empty!");
         }
         return invocation.proceed();
     }

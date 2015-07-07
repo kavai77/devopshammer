@@ -2,17 +2,12 @@ package com.smartdevs.engine;
 
 import com.google.gson.*;
 import com.smartdevs.exception.BadRequestException;
-import org.apache.commons.lang.StringUtils;
 
 /**
  * Created by coby on 20/10/14.
  */
 public class PrettyJsonPrinter {
     public String getPrettyJson(String json) throws BadRequestException {
-        if (StringUtils.isEmpty(json)) {
-            throw new BadRequestException("Input should not be empty!");
-        }
-
         try {
             JsonElement jsonElement = jsonParser().parse(json);
             return gsonBuilder().toJson(jsonElement);

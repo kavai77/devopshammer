@@ -1,6 +1,7 @@
 package com.smartdevs.service;
 
 import com.google.inject.Inject;
+import com.smartdevs.annotation.EmptyInputValidator;
 import com.smartdevs.annotation.MaxInputLengthValidator;
 import com.smartdevs.engine.PrettyJsonPrinter;
 import com.smartdevs.exception.BadRequestException;
@@ -23,6 +24,7 @@ public class JsonService {
     @Path("pretty")
     @Produces(MediaType.TEXT_PLAIN)
     @MaxInputLengthValidator
+    @EmptyInputValidator
     public String decode(String json) throws BadRequestException {
         return Base64.encodeBase64String(prettyJsonPrinter.getPrettyJson(json).getBytes());
     }

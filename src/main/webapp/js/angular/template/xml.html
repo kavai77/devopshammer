@@ -7,8 +7,8 @@
         <div ng-show="hasInvalidContent()" class="alert alert-danger" role="alert">INVALID {{message}}</div>
 
         <form>
-            <div ng-class="{'form-group has-error': (firstAction === false && xmlValid !== 'true'), 'form-group has-success': (firstAction == false && xmlValid === 'true')}">
-                <p>
+            <div ng-class="{'form-group has-error': hasInvalidContent(), 'form-group has-success': hasValidContent()}">
+            <p>
                     <ui-codemirror class="text-left" ui-codemirror-opts="editorOptions"
                                    ng-model="xmlInput"></ui-codemirror>
                 </p>

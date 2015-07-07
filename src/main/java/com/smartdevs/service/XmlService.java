@@ -1,6 +1,7 @@
 package com.smartdevs.service;
 
 import com.google.inject.Inject;
+import com.smartdevs.annotation.EmptyInputValidator;
 import com.smartdevs.annotation.MaxInputLengthValidator;
 import com.smartdevs.engine.PrettyXmlPrinter;
 
@@ -22,6 +23,7 @@ public class XmlService {
     @Path("pretty")
     @Produces(MediaType.APPLICATION_XML)
     @MaxInputLengthValidator
+    @EmptyInputValidator
     public String decode(String xml) throws UnsupportedEncodingException {
         return prettyXmlPrinter.getPrettyXml(xml);
     }

@@ -9,8 +9,8 @@
         <div ng-show="hasInvalidContent()" class="alert alert-danger" role="alert">INVALID {{message}}</div>
 
         <form>
-            <div ng-class="{'form-group has-error': (firstAction === false && jsonValid !== 'true'), 'form-group has-success': (firstAction == false && jsonValid === 'true')}">
-                <p>
+            <div ng-class="{'form-group has-error': hasInvalidContent(), 'form-group has-success': hasValidContent()}">
+            <p>
                     <ui-codemirror class="text-left" ui-codemirror-opts="editorOptions"
                                    ng-model="jsonInput"></ui-codemirror>
                 </p>
