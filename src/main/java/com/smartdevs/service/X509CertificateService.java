@@ -4,7 +4,10 @@ import com.google.inject.Inject;
 import com.smartdevs.annotation.MaxInputLengthValidator;
 import com.smartdevs.engine.X509CertificateDecoder;
 
-import javax.ws.rs.*;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.UnsupportedEncodingException;
@@ -20,7 +23,6 @@ public class X509CertificateService {
 
     @POST
     @Path("decode")
-    @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
     @MaxInputLengthValidator
     public String decode(String rawCert) throws UnsupportedEncodingException {

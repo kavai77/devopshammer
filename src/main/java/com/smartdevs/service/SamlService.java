@@ -7,7 +7,10 @@ import com.smartdevs.engine.SamlEncoder;
 import com.smartdevs.entity.SamlResponse;
 import org.apache.commons.lang.StringUtils;
 
-import javax.ws.rs.*;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 @Path("saml")
@@ -21,7 +24,6 @@ public class SamlService {
 
     @POST
     @Path("decode/{format}")
-    @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_XML)
     @MaxInputLengthValidator
     public SamlResponse decode(String saml, @PathParam( "format" ) String format) {
@@ -37,7 +39,6 @@ public class SamlService {
 
     @POST
     @Path("encode/{format}")
-    @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_XML)
     @MaxInputLengthValidator
     public SamlResponse encode(String saml, @PathParam( "format" ) String format) {

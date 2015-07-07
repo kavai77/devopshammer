@@ -26,7 +26,7 @@ public class PrettyXmlPrinter {
         try {
             return domToXmlSerializer(unformattedXml).writeToString(createDocumentFromString(unformattedXml));
         } catch (SAXException | IOException e) {
-            throw new BadRequestException("The XML is not well formatted: " + e.getMessage());
+            throw new BadRequestException(e.getMessage());
         } catch (ParserConfigurationException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }

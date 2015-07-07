@@ -17,7 +17,7 @@ public class PrettyJsonPrinter {
             JsonElement jsonElement = jsonParser().parse(json);
             return gsonBuilder().toJson(jsonElement);
         } catch (JsonSyntaxException e) {
-            throw new BadRequestException(e);
+            throw new BadRequestException(e.getCause().getMessage());
         }
     }
 
