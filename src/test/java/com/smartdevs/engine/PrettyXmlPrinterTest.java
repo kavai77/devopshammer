@@ -1,39 +1,43 @@
 package com.smartdevs.engine;
 
-import com.smartdevs.exception.PrettyXmlCreationException;
+import com.smartdevs.exception.BadRequestException;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
  * Created by coby on 19/10/14.
  */
 public class PrettyXmlPrinterTest {
-    @Test(expected = PrettyXmlCreationException.class)
-    public void failsWhenXmlInputIsNull() throws Exception {
-        PrettyXmlPrinter printer = new PrettyXmlPrinter(null);
-        printer.getPrettyXml();
+
+    private PrettyXmlPrinter underTest;
+    
+    @Before
+    public void setUp() throws Exception {
+        underTest = new PrettyXmlPrinter();
     }
 
-    @Test(expected = PrettyXmlCreationException.class)
+    @Test(expected = BadRequestException.class)
+    public void failsWhenXmlInputIsNull() throws Exception {
+        underTest.getPrettyXml(null);
+    }
+
+    @Test(expected = BadRequestException.class)
     public void failsWhenXmRootNodeIsMissingTheClosingTag() throws Exception {
-        PrettyXmlPrinter printer = new PrettyXmlPrinter("<rootWithNoCloseTag>");
-        printer.getPrettyXml();
+        underTest.getPrettyXml("<rootWithNoCloseTag>");
     }
 
     @Test
     public void worksWhenXmRootNodeIsDefined() throws Exception {
-        PrettyXmlPrinter printer = new PrettyXmlPrinter("<wrongsyntax/>");
-        printer.getPrettyXml();
+        underTest.getPrettyXml("<wrongsyntax/>");
     }
 
-    @Test(expected = PrettyXmlCreationException.class)
+    @Test(expected = BadRequestException.class)
     public void failsWhenXmAttributeIsWronglyDefined() throws Exception {
-        PrettyXmlPrinter printer = new PrettyXmlPrinter("<wrongsyntax attr=\"/>");
-        printer.getPrettyXml();
+        underTest.getPrettyXml("<wrongsyntax attr=\"/>");
     }
 
     @Test
     public void worksWhenXmAttributeIsProperlyDefined() throws Exception {
-        PrettyXmlPrinter printer = new PrettyXmlPrinter("<wrongsyntax attr=\"\" />");
-        printer.getPrettyXml();
+        underTest.getPrettyXml("<wrongsyntax attr=\"\" />");
     }
 }

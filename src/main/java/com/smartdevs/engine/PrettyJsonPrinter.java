@@ -1,35 +1,23 @@
 package com.smartdevs.engine;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-import com.smartdevs.exception.PrettyJsonCreationException;
+import com.google.gson.*;
+import com.smartdevs.exception.BadRequestException;
 import org.apache.commons.lang.StringUtils;
 
 /**
  * Created by coby on 20/10/14.
  */
 public class PrettyJsonPrinter {
-    private String json;
+    public String getPrettyJson(String json) throws BadRequestException {
+        if (StringUtils.isEmpty(json)) {
+            throw new BadRequestException("Input should not be empty!");
+        }
 
-    public PrettyJsonPrinter() {
-    }
-
-    public PrettyJsonPrinter(String jsonString) {
-        this.json = jsonString;
-    }
-
-    public String getPrettyJson() throws PrettyJsonCreationException {
         try {
-            if (StringUtils.isEmpty(json)) {
-                throw new PrettyJsonCreationException("Input should not be empty!");
-            }
-
             JsonElement jsonElement = jsonParser().parse(json);
             return gsonBuilder().toJson(jsonElement);
-        } catch (Exception ex) {
-            throw new PrettyJsonCreationException(ex);
+        } catch (JsonSyntaxException e) {
+            throw new BadRequestException(e);
         }
     }
 
@@ -41,7 +29,4 @@ public class PrettyJsonPrinter {
         return new JsonParser();
     }
 
-    public void setJson(String json) {
-        this.json = json;
-    }
 }

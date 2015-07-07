@@ -1,6 +1,6 @@
 package com.smartdevs.engine;
 
-import com.smartdevs.exception.PrettyXmlCreationException;
+import com.smartdevs.exception.BadRequestException;
 import org.w3c.dom.Node;
 import org.w3c.dom.bootstrap.DOMImplementationRegistry;
 import org.w3c.dom.ls.DOMImplementationLS;
@@ -22,24 +22,15 @@ public class PrettyXmlPrinter {
     public static final String XML_DECLARATION_BEGIN = "<?xml";
     public static final String LS = "LS";
 
-    private String unformattedXml;
-
-    public PrettyXmlPrinter() {
-    }
-
-    public PrettyXmlPrinter(String unformattedXml) {
-        this.unformattedXml = unformattedXml;
-    }
-
-    public String getPrettyXml() throws PrettyXmlCreationException {
+    public String getPrettyXml(String unformattedXml) throws BadRequestException {
         try {
-            return domToXmlSerializer().writeToString(createDocumentFromString());
+            return domToXmlSerializer(unformattedXml).writeToString(createDocumentFromString(unformattedXml));
         } catch (Exception e) {
-            throw new PrettyXmlCreationException(e);
+            throw new BadRequestException(e.getMessage());
         }
     }
 
-    private LSSerializer domToXmlSerializer() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+    private LSSerializer domToXmlSerializer(String unformattedXml) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         final DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
         final DOMImplementationLS impl = (DOMImplementationLS) registry.getDOMImplementation(LS);
         final LSSerializer serializedXml = impl.createLSSerializer();
@@ -51,12 +42,8 @@ public class PrettyXmlPrinter {
         return serializedXml;
     }
 
-    private Node createDocumentFromString() throws SAXException, IOException, ParserConfigurationException {
+    private Node createDocumentFromString(String unformattedXml) throws SAXException, IOException, ParserConfigurationException {
         final InputSource src = new InputSource(new StringReader(unformattedXml));
         return DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(src).getDocumentElement();
-    }
-
-    public void setUnformattedXml(String unformattedXml) {
-        this.unformattedXml = unformattedXml;
     }
 }

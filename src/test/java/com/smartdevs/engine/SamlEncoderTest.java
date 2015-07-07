@@ -5,49 +5,37 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+
 
 public class SamlEncoderTest {
-    private SamlEncoder samlEncoder;
+    private SamlEncoder underTest;
 
     @Before
     public void setUp() throws Exception {
-        samlEncoder = new SamlEncoder();
-    }
-
-    @Test
-    public void testWrongFormattedSamlRequest() throws Exception {
-        assertEquals(SamlResponse.CodingType.ERROR, samlEncoder.encodeSamlRequest("", null ).getCodingType());
-        assertEquals(SamlResponse.CodingType.ERROR, samlEncoder.encodeSamlRequest("    ", null).getCodingType());
-        assertEquals(SamlResponse.CodingType.ERROR, samlEncoder.encodeSamlRequest("text", null).getCodingType());
-        assertEquals(SamlResponse.CodingType.ERROR, samlEncoder.encodeSamlRequest("<xml", null).getCodingType());
-        assertEquals(SamlResponse.CodingType.ERROR, samlEncoder.encodeSamlRequest("xml>", null).getCodingType());
-        assertEquals(SamlResponse.CodingType.ERROR, samlEncoder.encodeSamlRequest("<xml>", null).getCodingType());
-        assertEquals(SamlResponse.CodingType.ERROR, samlEncoder.encodeSamlRequest("<xml attr=\"/>", null).getCodingType());
-        assertEquals(SamlResponse.CodingType.ERROR, samlEncoder.encodeSamlRequest("<xml></xml1>", null).getCodingType());
+        underTest = new SamlEncoder();
     }
 
     @Test
     public void testWellFormattedSamlRequest() throws Exception {
-        assertEquals(SamlResponse.CodingType.ENCODED, samlEncoder.encodeSamlRequest("<xml/>", SamlResponse.BindingFormat.POST ).getCodingType());
-        assertEquals(SamlResponse.CodingType.ENCODED, samlEncoder.encodeSamlRequest("<xml></xml>", SamlResponse.BindingFormat.REDIRECT ).getCodingType());
-        assertEquals(SamlResponse.CodingType.ENCODED, samlEncoder.encodeSamlRequest("   <xml>   </xml>    ", SamlResponse.BindingFormat.POST ).getCodingType());
-        assertEquals(SamlResponse.CodingType.ENCODED, samlEncoder.encodeSamlRequest("<xml attr=\"\"/>", SamlResponse.BindingFormat.REDIRECT ).getCodingType());
+        assertEquals(SamlResponse.CodingType.ENCODED, underTest.encodeSamlRequest("<xml/>", SamlResponse.BindingFormat.POST).getCodingType());
+        assertEquals(SamlResponse.CodingType.ENCODED, underTest.encodeSamlRequest("<xml></xml>", SamlResponse.BindingFormat.REDIRECT).getCodingType());
+        assertEquals(SamlResponse.CodingType.ENCODED, underTest.encodeSamlRequest("   <xml>   </xml>    ", SamlResponse.BindingFormat.POST).getCodingType());
+        assertEquals(SamlResponse.CodingType.ENCODED, underTest.encodeSamlRequest("<xml attr=\"\"/>", SamlResponse.BindingFormat.REDIRECT).getCodingType());
     }
 
     @Test
      public void testPostEncodingSamlRequest() throws Exception {
-        SamlResponse samlResponse = samlEncoder.encodeSamlRequest(SamlExamples.SAMPLE1.decoded, SamlResponse.BindingFormat.POST );
+        SamlResponse samlResponse = underTest.encodeSamlRequest(SamlExamples.SAMPLE1.decoded, SamlResponse.BindingFormat.POST );
         assertEquals(SamlResponse.CodingType.ENCODED, samlResponse.getCodingType());
-        assertNull(samlResponse.getMessage());
+        assertEquals(SamlResponse.BindingFormat.POST, samlResponse.getBindingFormat());
         assertEquals( SamlExamples.SAMPLE1.postEncoded, samlResponse.getResult() );
     }
 
     @Test
     public void testRedirectEncodingSamlRequest() throws Exception {
-        SamlResponse samlResponse = samlEncoder.encodeSamlRequest(SamlExamples.SAMPLE1.decoded, SamlResponse.BindingFormat.REDIRECT );
+        SamlResponse samlResponse = underTest.encodeSamlRequest(SamlExamples.SAMPLE1.decoded, SamlResponse.BindingFormat.REDIRECT );
         assertEquals(SamlResponse.CodingType.ENCODED, samlResponse.getCodingType());
-        assertNull(samlResponse.getMessage());
+        assertEquals(SamlResponse.BindingFormat.REDIRECT, samlResponse.getBindingFormat());
         assertEquals( SamlExamples.SAMPLE1.redirectEncoded, samlResponse.getResult() );
     }
 }

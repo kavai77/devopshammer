@@ -1,6 +1,7 @@
 package com.smartdevs.engine;
 
 import com.smartdevs.entity.SamlResponse;
+import com.smartdevs.exception.BadRequestException;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
 import org.xml.sax.SAXException;
@@ -19,7 +20,7 @@ import java.util.zip.Deflater;
 public class SamlEncoder {
     public SamlResponse encodeSamlRequest(String saml, SamlResponse.BindingFormat bindingFormat) {
         if (!isWellFormattedXML(saml)) {
-            return SamlResponse.error("The XML is not well formatted");
+            throw new BadRequestException("The XML is not well formatted");
         }
         switch (bindingFormat) {
             case POST:
@@ -60,8 +61,7 @@ public class SamlEncoder {
     }
 
     private boolean isWellFormattedXML(String saml) {
-        ByteArrayInputStream stream = new ByteArrayInputStream(saml.getBytes(StandardCharsets.UTF_8));
-        try {
+        try (ByteArrayInputStream stream = new ByteArrayInputStream(saml.getBytes(StandardCharsets.UTF_8))) {
             DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(stream);
             return true;
         } catch (SAXException e) {
@@ -70,8 +70,6 @@ public class SamlEncoder {
             return false;
         } catch (ParserConfigurationException e) {
             throw new RuntimeException(e);
-        } finally {
-            IOUtils.closeQuietly(stream);
         }
     }
 }

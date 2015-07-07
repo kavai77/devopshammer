@@ -21,15 +21,15 @@ public class SamlService {
 
     @POST
     @Path("decode/{format}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_XML)
     @MaxInputLengthValidator
     public SamlResponse decode(String saml, @PathParam( "format" ) String format) {
         if (StringUtils.isBlank(saml) || StringUtils.isBlank( format )) {
             return EMPTY_RESPONSE;
         }
         try {
-            return samlDecoder.decodeSamlRequest(saml, SamlResponse.BindingFormat.valueOf( format.toUpperCase() ));
+            return samlDecoder.decodeSamlRequest(saml, SamlResponse.BindingFormat.valueOf(format.toUpperCase()));
         } catch ( IllegalArgumentException e ) {
             return EMPTY_RESPONSE;
         }
@@ -37,15 +37,15 @@ public class SamlService {
 
     @POST
     @Path("encode/{format}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_XML)
     @MaxInputLengthValidator
     public SamlResponse encode(String saml, @PathParam( "format" ) String format) {
         if (StringUtils.isBlank(saml) || StringUtils.isBlank( format )) {
             return EMPTY_RESPONSE;
         }
         try {
-            return samlEncoder.encodeSamlRequest( saml, SamlResponse.BindingFormat.valueOf( format.toUpperCase() ) );
+            return samlEncoder.encodeSamlRequest(saml, SamlResponse.BindingFormat.valueOf(format.toUpperCase()));
         } catch ( IllegalArgumentException e ) {
             return EMPTY_RESPONSE;
         }

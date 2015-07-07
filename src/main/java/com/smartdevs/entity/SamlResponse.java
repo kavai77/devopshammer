@@ -1,6 +1,6 @@
 package com.smartdevs.entity;
 
-public class SamlResponse extends Response {
+public class SamlResponse {
         private String result;
         private CodingType codingType;
         private BindingFormat bindingFormat;
@@ -20,13 +20,6 @@ public class SamlResponse extends Response {
                 samlResponse.setCodingType( CodingType.DECODED );
                 samlResponse.setBindingFormat( bindingFormat );
                 samlResponse.setResult( result );
-                return samlResponse;
-        }
-
-        public static SamlResponse error( String errorMessage ) {
-                SamlResponse samlResponse = new SamlResponse();
-                samlResponse.setCodingType(CodingType.ERROR);
-                samlResponse.setMessage(errorMessage);
                 return samlResponse;
         }
 
