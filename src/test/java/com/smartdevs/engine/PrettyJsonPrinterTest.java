@@ -16,11 +16,6 @@ public class PrettyJsonPrinterTest {
     }
 
     @Test(expected = BadRequestException.class)
-    public void failsWhenJsonInputIsNull() throws Exception {
-        underTest.getPrettyJson(null);
-    }
-
-    @Test(expected = BadRequestException.class)
     public void failsWhenJsonIsMissingTheClosingTag() throws Exception {
         underTest.getPrettyJson("{");
     }
