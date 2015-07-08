@@ -9,9 +9,6 @@ import java.security.cert.X509Certificate;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by 212418603 on 2015.06.23..
- */
 public class X509CertificateDecoderTest {
 
     private X509CertificateDecoder decoder;

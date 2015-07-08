@@ -27,6 +27,11 @@ devOpsHammer.config(function ($routeProvider) {
             controller: 'base64Controller'
         })
 
+        .when('/x509decoder', {
+            templateUrl: 'js/angular/template/certdecoder.html',
+            controller: 'certDecoderController'
+        })
+
         .otherwise({
             redirectTo: '/'
         })

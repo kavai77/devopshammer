@@ -1,0 +1,15 @@
+<div class="container">
+    <div class="jumbotron center">
+        <div class="alert alert-grey" role="alert">Upload public CER or CRT file</div>
+        <p>
+            <input type="file" nv-file-select uploader="uploader"/>
+        </p>
+
+        <div ng-show="!certDecoded.isEmpty()">
+            <p>
+                <ui-codemirror class="text-left" ui-codemirror-opts="editorOptions"
+                               ng-model="certDecoded" ui-refresh='refreshEditor'></ui-codemirror>
+            </p>
+        </div>
+    </div>
+</div>

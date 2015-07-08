@@ -12,5 +12,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface MaxInputLengthValidator {
-    int value() default 1 << 20;
+    int _1MB = 1 << 20;
+
+    int value() default _1MB;
 }

@@ -25,19 +25,20 @@ devOpsHammer.controller('jsonController', ['$scope', '$http', function ($scope, 
     };
 
     $scope.jsonInputChange = function () {
-        $scope.inputEmpty = false;
+        $scope.inputEmpty = $scope.jsonInput.isEmpty();
 
-        // Simple POST request example (passing data) :
-        $http.post('/json/pretty', $scope.jsonInput).
-            success(function (data, status, headers, config) {
-                $scope.jsonValid = "true";
-                $scope.jsonInput = atob(data);
-            }).
-            error(function (data, status, headers, config) {
-                $scope.jsonValid = "false";
-                $scope.message = " - " + data;
-                console.log("error while calling validation service");
-            });
+        if (!$scope.inputEmpty) {
+            $http.post('/json/pretty', $scope.jsonInput).
+                success(function (data, status, headers, config) {
+                    $scope.jsonValid = "true";
+                    $scope.jsonInput = atob(data);
+                }).
+                error(function (data, status, headers, config) {
+                    $scope.jsonValid = "false";
+                    $scope.message = " - " + data;
+                    console.log("error while calling validation service");
+                });
+        }
     };
 }]);
 
@@ -65,19 +66,20 @@ devOpsHammer.controller('xmlController', ['$scope', '$http', function ($scope, $
     };
 
     $scope.xmlInputChange = function () {
-        $scope.inputEmpty = false;
+        $scope.inputEmpty = $scope.xmlInput.isEmpty();
 
-        // Simple POST request example (passing data) :
-        $http.post('/xml/pretty', $scope.xmlInput).
-            success(function (data, status, headers, config) {
-                $scope.xmlValid = "true";
-                $scope.xmlInput = data;
-            }).
-            error(function (data, status, headers, config) {
-                $scope.xmlValid = "false";
-                $scope.message = "- "  + data;
-                console.log("error while calling validation service");
-            });
+        if (!$scope.inputEmpty) {
+            $http.post('/xml/pretty', $scope.xmlInput).
+                success(function (data, status, headers, config) {
+                    $scope.xmlValid = "true";
+                    $scope.xmlInput = data;
+                }).
+                error(function (data, status, headers, config) {
+                    $scope.xmlValid = "false";
+                    $scope.message = "- " + data;
+                    console.log("error while calling validation service");
+                });
+        }
     };
 
 }]);
@@ -178,4 +180,20 @@ devOpsHammer.controller('base64Controller', ['$scope', '$http', function ($scope
         }
     };
 }]);
+
+devOpsHammer.controller('certDecoderController', function($scope, FileUploader) {
+    $scope.certDecoded = "";
+    $scope.editorOptions = {
+        lineNumbers: true,
+        mode: 'json',
+        readOnly: 'nocursor'
+    };
+    $scope.uploader = new FileUploader();
+    $scope.uploader.url = "/x509/decode";
+    $scope.uploader.autoUpload = true;
+    $scope.uploader.onSuccessItem = function(item, response, status, headers) {
+        $scope.certDecoded = JSON.stringify(response, null, 4);
+        $scope.refreshEditor = true;
+    }
+});
 

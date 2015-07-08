@@ -6,7 +6,6 @@ import com.smartdevs.annotation.MaxInputLengthValidator;
 import com.smartdevs.engine.SamlDecoder;
 import com.smartdevs.engine.SamlEncoder;
 import com.smartdevs.entity.SamlResponse;
-import org.apache.commons.lang.StringUtils;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -29,14 +28,7 @@ public class SamlService {
     @MaxInputLengthValidator
     @EmptyInputValidator
     public SamlResponse decode(String saml, @PathParam("format") String format) {
-        if (StringUtils.isBlank(saml) || StringUtils.isBlank(format)) {
-            return EMPTY_RESPONSE;
-        }
-        try {
-            return samlDecoder.decodeSamlRequest(saml, SamlResponse.BindingFormat.valueOf(format.toUpperCase()));
-        } catch (IllegalArgumentException e) {
-            return EMPTY_RESPONSE;
-        }
+        return samlDecoder.decodeSamlRequest(saml, SamlResponse.BindingFormat.valueOf(format.toUpperCase()));
     }
 
     @POST
@@ -45,13 +37,6 @@ public class SamlService {
     @MaxInputLengthValidator
     @EmptyInputValidator
     public SamlResponse encode(String saml, @PathParam("format") String format) {
-        if (StringUtils.isBlank(saml) || StringUtils.isBlank(format)) {
-            return EMPTY_RESPONSE;
-        }
-        try {
-            return samlEncoder.encodeSamlRequest(saml, SamlResponse.BindingFormat.valueOf(format.toUpperCase()));
-        } catch (IllegalArgumentException e) {
-            return EMPTY_RESPONSE;
-        }
+        return samlEncoder.encodeSamlRequest(saml, SamlResponse.BindingFormat.valueOf(format.toUpperCase()));
     }
 }
