@@ -1,14 +1,14 @@
 package com.smartdevs.service;
 
-import com.google.inject.Inject;
 import com.smartdevs.annotation.MaxInputLengthValidator;
 import com.smartdevs.engine.X509CertificateDecoder;
 import com.smartdevs.entity.X509CertificateResponse;
 import com.smartdevs.exception.InputLengthException;
-import com.sun.jersey.core.header.FormDataContentDisposition;
-import com.sun.jersey.multipart.FormDataParam;
 import org.apache.commons.io.IOUtils;
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
+import org.glassfish.jersey.media.multipart.FormDataParam;
 
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;

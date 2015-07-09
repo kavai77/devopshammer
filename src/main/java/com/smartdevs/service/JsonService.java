@@ -1,12 +1,12 @@
 package com.smartdevs.service;
 
-import com.google.inject.Inject;
 import com.smartdevs.annotation.EmptyInputValidator;
 import com.smartdevs.annotation.MaxInputLengthValidator;
 import com.smartdevs.engine.PrettyJsonPrinter;
 import com.smartdevs.exception.BadRequestException;
 import org.apache.commons.codec.binary.Base64;
 
+import javax.inject.Inject;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
