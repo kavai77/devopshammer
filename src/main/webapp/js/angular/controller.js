@@ -185,8 +185,16 @@ devOpsHammer.controller('certDecoderController', function($scope, FileUploader) 
     $scope.certDecoded = "";
     $scope.editorOptions = {
         lineNumbers: true,
-        mode: 'json',
-        readOnly: 'nocursor'
+        mode: 'javascript',
+        readOnly: 'true'
+    };
+    $scope.certValid = true;
+    $scope.errorMessage = "";
+    $scope.hasInvalidContent = function () {
+        return $scope.certValid == false;
+    };
+    $scope.hasValidContent = function () {
+        return !$scope.certDecoded.isEmpty() && $scope.certValid == true;
     };
     $scope.uploader = new FileUploader();
     $scope.uploader.url = "/x509/decode";
@@ -194,6 +202,11 @@ devOpsHammer.controller('certDecoderController', function($scope, FileUploader) 
     $scope.uploader.onSuccessItem = function(item, response, status, headers) {
         $scope.certDecoded = JSON.stringify(response, null, 4);
         $scope.refreshEditor = true;
+        $scope.certValid = true;
+    };
+    $scope.uploader.onErrorItem = function(item, response, status, headers) {
+        $scope.certValid = false;
+        $scope.errorMessage = response;
     }
 });
 
