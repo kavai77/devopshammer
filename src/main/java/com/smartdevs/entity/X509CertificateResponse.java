@@ -1,198 +1,162 @@
 package com.smartdevs.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.bouncycastle.asn1.ASN1ObjectIdentifier;
+import org.bouncycastle.asn1.x500.RDN;
+import org.bouncycastle.asn1.x500.X500Name;
+import org.bouncycastle.asn1.x500.style.BCStyle;
+import org.bouncycastle.cert.X509CertificateHolder;
+import org.bouncycastle.operator.DefaultAlgorithmNameFinder;
+
 import javax.xml.bind.annotation.XmlRootElement;
+import java.lang.reflect.Field;
 import java.math.BigInteger;
-import java.security.cert.CertificateParsingException;
-import java.security.cert.X509Certificate;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 
 @XmlRootElement
 public class X509CertificateResponse {
-    private String subjectDN;
-    private String issuerDN;
-    private Date notBefore;
-    private Date notAfter;
-    private ArrayList<String> extendedKeyUsage;
-    private String sigAlgName;
-    private String sigAlgOID;
-    private String x500Principal;
-    private ArrayList<ArrayList<?>> issuerAlternativeNames;
-    private BigInteger serialNumber;
-    private int version;
-    private int basicConstraints;
-    private boolean[] issuerUniqueID;
-    private boolean[] keyUsage;
-    private byte[] sigAlgParams;
-    private byte[] signature;
-    private boolean[] subjectUniqueID;
+    private X500NameMap subject;
+    private X500NameMap issuer;
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm a z")
+    private Date validFrom;
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm a z")
+    private Date validTo;
+    private String version;
+    private String serialNumber;
+    private String signatureAlgorithm;
+    private String publicKey;
 
     public X509CertificateResponse() {
     }
 
-    public X509CertificateResponse(X509Certificate x509Certificate) {
-        subjectDN = x509Certificate.getSubjectDN().toString();
-        issuerDN = x509Certificate.getIssuerDN().toString();
-        notBefore = x509Certificate.getNotBefore();
-        notAfter = x509Certificate.getNotAfter();
-        try {
-            extendedKeyUsage = new ArrayList<>(x509Certificate.getExtendedKeyUsage());
-        } catch (CertificateParsingException | NullPointerException ignored) {
-        }
-        sigAlgName = x509Certificate.getSigAlgName();
-        sigAlgOID = x509Certificate.getSigAlgOID();
-        x500Principal = x509Certificate.getSubjectX500Principal().toString();
-        try {
-            issuerAlternativeNames = new ArrayList<>();
-            for(List<?> alternativeNames: x509Certificate.getIssuerAlternativeNames()) {
-                issuerAlternativeNames.add(new ArrayList<Object>(alternativeNames));
+    public X509CertificateResponse(X509CertificateHolder x509CertificateHolder) {
+        subject = new X500NameMap(x509CertificateHolder.getSubject());
+        issuer = new X500NameMap(x509CertificateHolder.getIssuer());
+        validFrom = x509CertificateHolder.getNotBefore();
+        validTo = x509CertificateHolder.getNotAfter();
+        version = "V" + x509CertificateHolder.getVersionNumber();
+        serialNumber = getByteCode(x509CertificateHolder.getSerialNumber());
+        DefaultAlgorithmNameFinder finder = new DefaultAlgorithmNameFinder();
+        signatureAlgorithm = finder.getAlgorithmName(x509CertificateHolder.getSignatureAlgorithm());
+        publicKey = getByteCode(x509CertificateHolder.getSubjectPublicKeyInfo().getPublicKeyData().getBytes());
+    }
+
+
+
+    private static class X500NameMap extends LinkedHashMap<String, String>{
+        public X500NameMap(X500Name x500Name) {
+            put("CN", null);
+            put("OU", null);
+            put("O", null);
+            put("L", null);
+            put("ST", null);
+            put("C", null);
+            try {
+                for (Field field : BCStyle.class.getDeclaredFields()) {
+                    if (field.getType().equals(ASN1ObjectIdentifier.class)) {
+                        ASN1ObjectIdentifier id = (ASN1ObjectIdentifier) field.get(null);
+                        put(BCStyle.INSTANCE.oidToDisplayName(id), getX500Field(x500Name, id));
+                    }
+                }
+            } catch (IllegalAccessException ignored) {
             }
-        } catch (CertificateParsingException | NullPointerException ignored) {
+            for (Iterator<String> i = keySet().iterator();i.hasNext();) {
+                if (get(i.next()) == null) i.remove();
+            }
         }
-        serialNumber = x509Certificate.getSerialNumber();
-        version = x509Certificate.getVersion();
-        basicConstraints = x509Certificate.getBasicConstraints();
-        issuerUniqueID = x509Certificate.getIssuerUniqueID();
-        keyUsage = x509Certificate.getKeyUsage();
-        sigAlgParams = x509Certificate.getSigAlgParams();
-        signature = x509Certificate.getSignature();
-        subjectUniqueID = x509Certificate.getSubjectUniqueID();
+
+        private String getX500Field(X500Name x500Name, ASN1ObjectIdentifier asn1ObjectIdentifier) {
+            RDN[] rdnArray = x500Name.getRDNs(asn1ObjectIdentifier);
+            return rdnArray.length == 0 ? null : rdnArray[0].getFirst().getValue().toString();
+        }
     }
 
-    public boolean[] getSubjectUniqueID() {
-        return subjectUniqueID;
+    private String getByteCode(BigInteger bigInteger) {
+        StringBuilder sb = new StringBuilder(bigInteger.toString(16));
+        if (sb.length() % 2 == 1) {
+            sb.insert(0, '0');
+        }
+        for (int i = 2;i < sb.length(); i+=3) {
+            sb.insert(i, ' ');
+        }
+        return sb.toString();
     }
 
-    public void setSubjectUniqueID(boolean[] subjectUniqueID) {
-        this.subjectUniqueID = subjectUniqueID;
+    private String getByteCode(byte[] bytes) {
+        BigInteger bigInteger = new BigInteger(bytes);
+        StringBuilder sb = new StringBuilder(bigInteger.toString(16));
+        if (sb.length() % 2 == 1) {
+            sb.insert(0, '0');
+        }
+        for (int i = 2;i < sb.length(); i+=3) {
+            sb.insert(i, ' ');
+        }
+        return sb.toString();
     }
 
-    public byte[] getSigAlgParams() {
-        return sigAlgParams;
+    public X500NameMap getSubject() {
+        return subject;
     }
 
-    public void setSigAlgParams(byte[] sigAlgParams) {
-        this.sigAlgParams = sigAlgParams;
+    public void setSubject(X500NameMap subject) {
+        this.subject = subject;
     }
 
-    public byte[] getSignature() {
-        return signature;
+    public X500NameMap getIssuer() {
+        return issuer;
     }
 
-    public void setSignature(byte[] signature) {
-        this.signature = signature;
+    public void setIssuer(X500NameMap issuer) {
+        this.issuer = issuer;
     }
 
-    public boolean[] getKeyUsage() {
-        return keyUsage;
+    public Date getValidFrom() {
+        return validFrom;
     }
 
-    public void setKeyUsage(boolean[] keyUsage) {
-        this.keyUsage = keyUsage;
+    public void setValidFrom(Date validFrom) {
+        this.validFrom = validFrom;
     }
 
-    public boolean[] getIssuerUniqueID() {
-        return issuerUniqueID;
+    public Date getValidTo() {
+        return validTo;
     }
 
-    public void setIssuerUniqueID(boolean[] issuerUniqueID) {
-        this.issuerUniqueID = issuerUniqueID;
+    public void setValidTo(Date validTo) {
+        this.validTo = validTo;
     }
 
-    public int getBasicConstraints() {
-        return basicConstraints;
-    }
-
-    public void setBasicConstraints(int basicConstraints) {
-        this.basicConstraints = basicConstraints;
-    }
-
-    public int getVersion() {
+    public String getVersion() {
         return version;
     }
 
-    public void setVersion(int version) {
+    public void setVersion(String version) {
         this.version = version;
     }
 
-    public String getSubjectDN() {
-        return subjectDN;
-    }
-
-    public String getIssuerDN() {
-        return issuerDN;
-    }
-
-    public Date getNotBefore() {
-        return notBefore;
-    }
-
-    public Date getNotAfter() {
-        return notAfter;
-    }
-
-    public ArrayList<String> getExtendedKeyUsage() {
-        return extendedKeyUsage;
-    }
-
-    public void setExtendedKeyUsage(ArrayList<String> extendedKeyUsage) {
-        this.extendedKeyUsage = extendedKeyUsage;
-    }
-
-    public String getSigAlgName() {
-        return sigAlgName;
-    }
-
-    public void setSigAlgName(String sigAlgName) {
-        this.sigAlgName = sigAlgName;
-    }
-
-    public String getSigAlgOID() {
-        return sigAlgOID;
-    }
-
-    public void setSigAlgOID(String sigAlgOID) {
-        this.sigAlgOID = sigAlgOID;
-    }
-
-    public String getX500Principal() {
-        return x500Principal;
-    }
-
-    public void setX500Principal(String x500Principal) {
-        this.x500Principal = x500Principal;
-    }
-
-    public ArrayList<ArrayList<?>> getIssuerAlternativeNames() {
-        return issuerAlternativeNames;
-    }
-
-    public void setIssuerAlternativeNames(ArrayList<ArrayList<?>> issuerAlternativeNames) {
-        this.issuerAlternativeNames = issuerAlternativeNames;
-    }
-
-    public BigInteger getSerialNumber() {
+    public String getSerialNumber() {
         return serialNumber;
     }
 
-    public void setSerialNumber(BigInteger serialNumber) {
+    public void setSerialNumber(String serialNumber) {
         this.serialNumber = serialNumber;
     }
 
-    public void setSubjectDN(String subjectDN) {
-        this.subjectDN = subjectDN;
+    public String getSignatureAlgorithm() {
+        return signatureAlgorithm;
     }
 
-    public void setIssuerDN(String issuerDN) {
-        this.issuerDN = issuerDN;
+    public void setSignatureAlgorithm(String signatureAlgorithm) {
+        this.signatureAlgorithm = signatureAlgorithm;
     }
 
-    public void setNotBefore(Date notBefore) {
-        this.notBefore = notBefore;
+    public String getPublicKey() {
+        return publicKey;
     }
 
-    public void setNotAfter(Date notAfter) {
-        this.notAfter = notAfter;
+    public void setPublicKey(String publicKey) {
+        this.publicKey = publicKey;
     }
 }

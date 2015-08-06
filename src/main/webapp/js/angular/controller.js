@@ -2,40 +2,26 @@ devOpsHammer.controller('homeController', ['$scope', '$http', function ($scope, 
 }]);
 
 devOpsHammer.controller('jsonController', ['$scope', '$http', function ($scope, $http) {
-
-    $scope.inputEmpty = true;
     $scope.message = "";
+    $scope.errorMessage = "";
     $scope.jsonInput = "";
-    $scope.jsonValid = "false";
     $scope.editorOptions = {
         lineNumbers: true,
         mode: 'scheme'
     };
 
-    $scope.hasNoContent = function () {
-        return $scope.inputEmpty === true;
-    };
-
-    $scope.hasValidContent = function () {
-        return $scope.inputEmpty === false && $scope.jsonValid === 'true';
-    };
-
-    $scope.hasInvalidContent = function () {
-        return $scope.inputEmpty === false && $scope.jsonValid !== 'true';
-    };
-
     $scope.jsonInputChange = function () {
-        $scope.inputEmpty = $scope.jsonInput.isEmpty();
-
-        if (!$scope.inputEmpty) {
+        if (!$scope.jsonInput.isEmpty()) {
+            $scope.message = "Uploading...";
+            $scope.errorMessage = "";
             $http.post('/json/pretty', $scope.jsonInput).
                 success(function (data, status, headers, config) {
-                    $scope.jsonValid = "true";
+                    $scope.message = "FORMATTED";
                     $scope.jsonInput = atob(data);
                 }).
                 error(function (data, status, headers, config) {
-                    $scope.jsonValid = "false";
-                    $scope.message = " - " + data;
+                    $scope.message = "";
+                    $scope.errorMessage = "INVALID - " + data;
                     console.log("error while calling validation service");
                 });
         }
@@ -43,40 +29,26 @@ devOpsHammer.controller('jsonController', ['$scope', '$http', function ($scope, 
 }]);
 
 devOpsHammer.controller('xmlController', ['$scope', '$http', function ($scope, $http) {
-
-    $scope.inputEmpty = true;
     $scope.message = "";
+    $scope.errorMessage = "";
     $scope.xmlInput = "";
-    $scope.xmlValid = "false";
     $scope.editorOptions = {
         lineNumbers: true,
         mode: 'scheme'
     };
 
-    $scope.hasNoContent = function () {
-        return $scope.inputEmpty === true;
-    };
-
-    $scope.hasValidContent = function () {
-        return $scope.inputEmpty === false && $scope.xmlValid === 'true';
-    };
-
-    $scope.hasInvalidContent = function () {
-        return $scope.inputEmpty === false && $scope.xmlValid !== 'true';
-    };
-
     $scope.xmlInputChange = function () {
-        $scope.inputEmpty = $scope.xmlInput.isEmpty();
-
-        if (!$scope.inputEmpty) {
+        if (!$scope.xmlInput.isEmpty()) {
+            $scope.message = "Uploading...";
+            $scope.errorMessage = "";
             $http.post('/xml/pretty', $scope.xmlInput).
                 success(function (data, status, headers, config) {
-                    $scope.xmlValid = "true";
+                    $scope.message = "FORMATTED";
                     $scope.xmlInput = data;
                 }).
                 error(function (data, status, headers, config) {
-                    $scope.xmlValid = "false";
-                    $scope.message = "- " + data;
+                    $scope.message = "";
+                    $scope.errorMessage = "INVALID - " + data;
                     console.log("error while calling validation service");
                 });
         }
@@ -86,46 +58,42 @@ devOpsHammer.controller('xmlController', ['$scope', '$http', function ($scope, $
 devOpsHammer.controller('urlController', ['$scope', '$http', function ($scope, $http) {
 
     $scope.urlInput = "";
-    $scope.inputEmpty = true;
-    $scope.urlCoded = "na";
+    $scope.message = "";
+    $scope.errorMessage = "";
     $scope.editorOptions = {
         lineNumbers: true,
         mode: 'scheme'
     };
 
     $scope.urlInputEncode = function () {
-        $scope.inputEmpty = $scope.urlInput.isEmpty();
-
-        if (!$scope.inputEmpty) {
+        if (!$scope.urlInput.isEmpty()) {
+            $scope.message = "Uploading...";
+            $scope.errorMessage = "";
             $http.post('/url/encode', $scope.urlInput).
                 success(function (data, status, headers, config) {
-                    // this callback will be called asynchronously
-                    // when the response is available
-                    $scope.urlCoded = "encoded";
+                    $scope.message = "ENCODED";
                     $scope.urlInput = data;
                 }).
                 error(function (data, status, headers, config) {
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
+                    $scope.message = "";
+                    $scope.errorMessage = "Unexpected error happened";
                     console.log("error while calling validation service");
                 });
         }
     };
 
     $scope.urlInputDecode = function () {
-        $scope.inputEmpty = $scope.urlInput.isEmpty();
-
-        if (!$scope.inputEmpty) {
+        if (!$scope.urlInput.isEmpty()) {
+            $scope.message = "Uploading...";
+            $scope.errorMessage = "";
             $http.post('/url/decode', $scope.urlInput).
                 success(function (data, status, headers, config) {
-                    // this callback will be called asynchronously
-                    // when the response is available
-                    $scope.urlCoded = "decoded";
+                    $scope.message = "DECODED";
                     $scope.urlInput = data;
                 }).
                 error(function (data, status, headers, config) {
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
+                    $scope.message = "";
+                    $scope.errorMessage = "Unexpected error happened";
                     console.log("error while calling validation service");
                 });
         }
@@ -133,48 +101,43 @@ devOpsHammer.controller('urlController', ['$scope', '$http', function ($scope, $
 }]);
 
 devOpsHammer.controller('base64Controller', ['$scope', '$http', function ($scope, $http) {
-
     $scope.base64Input = "";
-    $scope.inputEmpty = true;
-    $scope.base64Coded = "na";
+    $scope.message = "";
+    $scope.errorMessage = "";
     $scope.editorOptions = {
         lineNumbers: true,
         mode: 'scheme'
     };
 
     $scope.base64InputEncode = function () {
-        $scope.inputEmpty = $scope.base64Input.isEmpty();
-
-        if (!$scope.inputEmpty) {
+        if (!$scope.base64Input.isEmpty()) {
+            $scope.message = "Uploading...";
+            $scope.errorMessage = "";
             $http.post('/base64/encode', $scope.base64Input).
                 success(function (data, status, headers, config) {
-                    // this callback will be called asynchronously
-                    // when the response is available
-                    $scope.base64Coded = "encoded";
+                    $scope.message = "ENCODED";
                     $scope.base64Input = data;
                 }).
                 error(function (data, status, headers, config) {
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
+                    $scope.message = "";
+                    $scope.errorMessage = "Unexpected Error happened";
                     console.log("error while calling validation service");
                 });
         }
     };
 
     $scope.base64InputDecode = function () {
-        $scope.inputEmpty = $scope.base64Input.isEmpty();
-
-        if (!$scope.inputEmpty) {
+        if (!$scope.base64Input.isEmpty()) {
+            $scope.message = "Uploading...";
+            $scope.errorMessage = "";
             $http.post('/base64/decode', $scope.base64Input).
                 success(function (data, status, headers, config) {
-                    // this callback will be called asynchronously
-                    // when the response is available
-                    $scope.base64Coded = "decoded";
+                    $scope.message = "DECODED";
                     $scope.base64Input = data;
                 }).
                 error(function (data, status, headers, config) {
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
+                    $scope.message = "";
+                    $scope.errorMessage = "Unexpected Error happened";
                     console.log("error while calling validation service");
                 });
         }
@@ -182,31 +145,32 @@ devOpsHammer.controller('base64Controller', ['$scope', '$http', function ($scope
 }]);
 
 devOpsHammer.controller('certDecoderController', function($scope, FileUploader) {
+    $scope.successMessage = "";
+    $scope.errorMessage = "";
     $scope.certDecoded = "";
+    $scope.refreshEditor = false;
     $scope.editorOptions = {
         lineNumbers: true,
         mode: 'javascript',
         readOnly: 'true'
     };
-    $scope.certValid = true;
-    $scope.errorMessage = "";
-    $scope.hasInvalidContent = function () {
-        return $scope.certValid == false;
-    };
-    $scope.hasValidContent = function () {
-        return !$scope.certDecoded.isEmpty() && $scope.certValid == true;
-    };
     $scope.uploader = new FileUploader();
     $scope.uploader.url = "/x509/decode";
     $scope.uploader.autoUpload = true;
+    $scope.uploader.onBeforeUploadItem  = function(item) {
+        $scope.successMessage = "Uploading...";
+        $scope.errorMessage = "";
+        $scope.certDecoded = "";
+        $scope.refreshEditor = false;
+    }
     $scope.uploader.onSuccessItem = function(item, response, status, headers) {
         $scope.certDecoded = JSON.stringify(response, null, 4);
         $scope.refreshEditor = true;
-        $scope.certValid = true;
+        $scope.successMessage = "Certificate Extracted";
     };
     $scope.uploader.onErrorItem = function(item, response, status, headers) {
-        $scope.certValid = false;
         $scope.errorMessage = response;
+        $scope.successMessage = "";
     }
 });
 

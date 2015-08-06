@@ -1,17 +1,13 @@
 <div class="container">
     <div class="jumbotron center">
-        <div ng-show="inputEmpty === true" class="alert alert-grey" role="alert">ENTER DATA</div>
+        <div ng-show="message.isEmpty() && errorMessage.isEmpty()" class="alert alert-grey" role="alert">ENTER DATA FOR BASE64 ENCODE OR DECODE</div>
 
-        <div ng-show="inputEmpty === false && base64Coded === 'encoded'" class="alert alert-success" role="alert">
-        ENCODED
-        </div>
+        <div ng-hide="message.isEmpty()" class="alert alert-success" role="alert">{{message}}</div>
 
-        <div ng-show="inputEmpty === false && base64Coded === 'decoded'" class="alert alert-success" role="alert">
-        DECODED
-        </div>
+        <div ng-hide="errorMessage.isEmpty()" class="alert alert-danger" role="alert">{{errorMessage}}</div>
 
         <form>
-            <div ng-class="{'form-group has-error': (inputEmpty === false && base64Coded === 'na'), 'form-group has-success': (inputEmpty == false && base64Coded !== 'na')}">
+            <div ng-class="{'form-group has-error': (!errorMessage.isEmpty()), 'form-group has-success': (!message.isEmpty())}">
             <p>
                     <ui-codemirror class="text-left" ui-codemirror-opts="editorOptions"
                                    ng-model="base64Input"></ui-codemirror>

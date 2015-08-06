@@ -1,15 +1,13 @@
 <div class="container">
     <div class="jumbotron center">
-        <div ng-show="hasNoContent()" class="alert alert-grey">ENTER JSON DATA</div>
+        <div ng-show="message.isEmpty() && errorMessage.isEmpty()" class="alert alert-grey">ENTER JSON DATA</div>
 
-        <div ng-show="hasValidContent()" class="alert alert-success" role="alert">
-            FORMATTED
-        </div>
+        <div ng-hide="message.isEmpty()" class="alert alert-success" role="alert">{{message}}</div>
 
-        <div ng-show="hasInvalidContent()" class="alert alert-danger" role="alert">INVALID {{message}}</div>
+        <div ng-hide="errorMessage.isEmpty()" class="alert alert-danger" role="alert">{{errorMessage}}</div>
 
         <form>
-            <div ng-class="{'form-group has-error': hasInvalidContent(), 'form-group has-success': hasValidContent()}">
+            <div ng-class="{'form-group has-error': (!errorMessage.isEmpty()), 'form-group has-success': (!message.isEmpty())}">
             <p>
                     <ui-codemirror class="text-left" ui-codemirror-opts="editorOptions"
                                    ng-model="jsonInput"></ui-codemirror>

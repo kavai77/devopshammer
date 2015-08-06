@@ -3,15 +3,16 @@
 </script>
 <div class="container">
     <div class="jumbotron center">
-        <div class="alert alert-grey" role="alert">Upload public CER or CRT file</div>
+        <div ng-show="successMessage.isEmpty() && errorMessage.isEmpty()" class="alert alert-grey" role="alert">Upload public CER or CRT file</div>
 
-        <div ng-show="hasInvalidContent()" class="alert alert-danger" role="alert">{{errorMessage}}</div>
+        <div ng-hide="successMessage.isEmpty()" class="alert alert-success" role="alert">{{successMessage}}</div>
+        <div ng-hide="errorMessage.isEmpty()" class="alert alert-danger" role="alert">{{errorMessage}}</div>
 
         <p>
             <input type="file" nv-file-select uploader="uploader"/>
         </p>
 
-        <div ng-show="hasValidContent()">
+        <div ng-hide="certDecoded.isEmpty()">
             <p>
                 <ui-codemirror id="certCodeMirror" class="text-left" ui-codemirror-opts="editorOptions"
                                ng-model="certDecoded" ui-refresh='refreshEditor'></ui-codemirror>
