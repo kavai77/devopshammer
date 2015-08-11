@@ -9,26 +9,25 @@ describe('json formatter', function () {
         expect(messageVisitPageFirstTime.isDisplayed()).toBeTruthy();
     });
 
-    it('shuld say error message when empty input', function () {
+    it('should say error message when invalid input', function () {
         var messageError = element(by.css('div.alert-danger'));
+
+        browser.executeScript("var editor = $('.CodeMirror')[0].CodeMirror;editor.setValue('{');");
 
         element(by.id('formatJsonButtonId')).click();
 
         expect(messageError.isDisplayed()).toBeTruthy();
     });
 
-    //TODO: how to pass input to ui-codemirror????
-    /*
-    it('shuld say error message when invalid input', function () {
-        var messageError = element(by.css('div.alert-danger'));
+    it('should say success message when valid input', function () {
+        var messageError = element(by.css('div.alert-success'));
 
-        element(by.model('jsonInput')).sendKeys('{');
+        browser.executeScript("var editor = $('.CodeMirror')[0].CodeMirror;editor.setValue('{}');");
 
         element(by.id('formatJsonButtonId')).click();
 
         expect(messageError.isDisplayed()).toBeTruthy();
     });
-    */
 });
 
 

@@ -8,14 +8,6 @@ describe('json formatter', function () {
 
         expect(messageVisitPageFirstTime.isDisplayed()).toBeTruthy();
     });
-
-    it('shuld say error message when empty input', function () {
-        var messageError = element(by.css('div.alert-danger'));
-
-        element(by.id('formatXmlButtonId')).click();
-
-        expect(messageError.isDisplayed()).toBeTruthy();
-    });
 });
 
 
